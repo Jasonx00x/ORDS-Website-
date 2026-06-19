@@ -51,7 +51,7 @@ const merchProducts=merchCards.map(card=>({
   id:card.dataset.productId,
   name:card.dataset.productName,
   price:Number(card.dataset.productPrice||0),
-  priceLabel:card.dataset.productPriceLabel||'Confirm',
+  priceLabel:card.dataset.productPriceLabel||'Request price',
   sizes:(card.dataset.productSizes||'').split('|').filter(Boolean),
   variants:JSON.parse(card.dataset.productVariants||'[]')
 }));
@@ -76,8 +76,8 @@ function setSizeOptions(product,current=''){
   setCustomSelectValue('merchSizeSelect',next,next||'Choose size');
 }
 function mediaMarkup(product,media){
-  if(media?.type==='video')return `<video class="merch-main-media" autoplay loop muted defaultMuted playsinline preload="metadata" poster="${media.poster||product.variants?.[0]?.media?.[0]?.src||''}"><source src="${media.src}" type="video/mp4"></video>`;
-  return `<img class="merch-main-media gallery-main" src="${media?.src||''}" alt="${product.name}">`;
+  if(media?.type==='video')return `<video class="merch-main-media" autoplay loop muted defaultMuted playsinline preload="none" poster="${media.poster||product.variants?.[0]?.media?.[0]?.src||''}"><source src="${media.src}" type="video/mp4"></video>`;
+  return `<img class="merch-main-media gallery-main" src="${media?.src||''}" alt="${product.name}" loading="lazy" decoding="async">`;
 }
 function silenceMerchVideo(video){
   if(!video)return;
@@ -89,7 +89,7 @@ function silenceMerchVideo(video){
 function renderMediaRail(card,product,variant,activeIndex=0){
   const rail=card.querySelector('.media-rail');
   if(!rail)return;
-  rail.innerHTML=(variant.media||[]).map((media,index)=>`<button class="media-thumb${index===activeIndex?' active':''}" type="button" data-media-index="${index}" aria-label="${media.type==='video'?'Play product video':`View product photo ${index+1}`}">${media.type==='video'?'<span class="media-play">Play</span>':`<img src="${media.src}" alt="">`}</button>`).join('');
+  rail.innerHTML=(variant.media||[]).map((media,index)=>`<button class="media-thumb${media.type==='video'?' video-thumb':''}${index===activeIndex?' active':''}" type="button" data-media-index="${index}" aria-label="${media.type==='video'?'View product video':`View product photo ${index+1}`}">${media.type==='video'?'<span class="media-play">Video</span>':`<img src="${media.src}" alt="" loading="lazy" decoding="async">`}</button>`).join('');
 }
 function setCardVariant(card,variantName,mediaIndex=0){
   const product=merchProducts.find(item=>item.id===card.dataset.productId);
@@ -116,10 +116,10 @@ function setMerchProduct(product){
   const hasPrice=product.price>0;
   const total=product.price*qty;
   if(checkoutItem)checkoutItem.textContent=variantName?`${product.name} / ${variantName}`:product.name;
-  if(checkoutPrice)checkoutPrice.textContent=hasPrice?`$${total}`:'Confirm';
+  if(checkoutPrice)checkoutPrice.textContent=hasPrice?`$${total}`:'Request';
   if(checkoutItemInput)checkoutItemInput.value=`${product.name}${variantName?` - ${variantName}`:''} - ${product.priceLabel}`;
   if(checkoutColorInput)checkoutColorInput.value=variantName;
-  if(checkoutTotalInput)checkoutTotalInput.value=hasPrice?`$${total}`:'Confirm with ORDS';
+  if(checkoutTotalInput)checkoutTotalInput.value=hasPrice?`$${total}`:'Request price with ORDS';
   setCustomSelectValue('merchItemSelect',`${product.name} - ${product.priceLabel}`,product.name);
   setSizeOptions(product,sizeSelect?.value||product.sizes[0]||'');
   merchCards.forEach(card=>card.classList.toggle('selected',card.dataset.productId===product.id));
@@ -133,9 +133,9 @@ function syncRequestItems(){
   if(checkoutItemsInput)checkoutItemsInput.value=requestItems.map(formatRequestItem).join('\n');
   const priced=requestItems.filter(item=>item.price>0);
   const total=priced.reduce((sum,item)=>sum+(item.price*item.quantity),0);
-  const hasConfirm=requestItems.some(item=>!item.price);
-  if(checkoutPrice)checkoutPrice.textContent=requestItems.length?(hasConfirm?'Confirm':`$${total}`):'$0';
-  if(checkoutTotalInput)checkoutTotalInput.value=requestItems.length?(hasConfirm?`Confirm with ORDS${priced.length?` / $${total} known items`:''}`:`$${total}`):'';
+  const hasRequest=requestItems.some(item=>!item.price);
+  if(checkoutPrice)checkoutPrice.textContent=requestItems.length?(hasRequest?'Request':`$${total}`):'$0';
+  if(checkoutTotalInput)checkoutTotalInput.value=requestItems.length?(hasRequest?`Request price with ORDS${priced.length?` / $${total} known items`:''}`:`$${total}`):'';
   if(!requestList)return;
   if(!requestItems.length){
     requestList.innerHTML='<span>No items added yet.</span>';
@@ -155,11 +155,11 @@ function addCurrentRequestItem(){
   const size=sizeSelect?.value || product.sizes[0] || '';
   const quantity=Math.max(1,Number(quantityInput?.value||1));
   const price=product.price||0;
-  const totalLabel=price?`$${price*quantity}`:'Confirm';
+  const totalLabel=price?`$${price*quantity}`:'Request price';
   const existing=requestItems.find(item=>item.id===product.id&&item.variant===variant&&item.size===size);
   if(existing){
     existing.quantity+=quantity;
-    existing.totalLabel=existing.price?`$${existing.price*existing.quantity}`:'Confirm';
+    existing.totalLabel=existing.price?`$${existing.price*existing.quantity}`:'Request price';
   }else{
     requestItems.push({id:product.id,name:product.name,variant,size,quantity,price,totalLabel});
   }
