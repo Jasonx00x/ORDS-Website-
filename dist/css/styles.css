@@ -141,6 +141,20 @@ section{padding:105px 0}.light{background:var(--soft);color:var(--ink)}.white{ba
 .final-video-grid .video-label p{font-size:clamp(14px,1.05vw,18px);line-height:1.45;color:#d7def0;margin:0;max-width:520px}
 .final-video-grid .unmute-btn{z-index:6}
 @media(max-width:980px){.final-video-grid{grid-template-columns:1fr!important;max-width:720px!important}.final-video-grid .video-label{left:22px;right:22px;bottom:22px}}
+@media(max-width:680px){
+  .welcome-videos{padding-top:78px;padding-bottom:92px}
+  .welcome-videos .section-head{margin-bottom:34px}
+  .welcome-videos .section-head h2{font-size:clamp(40px,11vw,58px);line-height:.95}
+  .final-video-grid{gap:56px!important;max-width:100%!important}
+  .final-video-grid .landscape-video{display:flex;flex-direction:column;position:relative;aspect-ratio:auto!important;min-height:0!important;overflow:visible!important;border:0;border-radius:0;background:transparent;box-shadow:none}
+  .final-video-grid .landscape-video video{position:relative;inset:auto;width:100%;height:auto;aspect-ratio:16/9;border:1px solid rgba(255,255,255,.16);border-radius:24px;box-shadow:0 24px 70px rgba(0,0,0,.34);background:#02040a}
+  .final-video-grid .landscape-video:after{display:none}
+  .final-video-grid .video-label{position:static;order:2;max-width:none;margin-top:14px;color:#fff;pointer-events:auto}
+  .final-video-grid .video-label .eyebrow{position:absolute;left:12px;top:12px;z-index:7;padding:7px 10px;font-size:9px;background:rgba(2,4,10,.72)!important;border-color:rgba(255,255,255,.22);backdrop-filter:blur(10px)}
+  .final-video-grid .video-label h3{margin:0 0 6px!important;font-size:24px!important;line-height:1.08!important;color:#fff!important;filter:none!important}
+  .final-video-grid .video-label p{font-size:15px!important;line-height:1.55!important;color:#bfc8dd!important;filter:none!important}
+  .final-video-grid .unmute-btn{top:12px;right:12px;z-index:8;padding:8px 10px;font-size:9px;background:rgba(2,4,10,.74)}
+}
 
 /* Light section service-card contrast */
 .light .price-card,.white .price-card{background:#fff;border-color:rgba(10,17,43,.08);box-shadow:0 20px 70px rgba(7,9,20,.08)}

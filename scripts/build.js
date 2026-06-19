@@ -4,7 +4,9 @@ const path = require("path");
 const root = path.resolve(__dirname, "..");
 const src = path.join(root, "src");
 const dist = path.join(root, "dist");
-const siteUrl = "https://ordsmusic.netlify.app";
+const siteUrl = "https://ordsmusic.com";
+const siteName = "ORDS Music School & Studio";
+const socialImage = "https://res.cloudinary.com/dtmonxj1h/image/upload/q_auto/f_auto/v1781886182/ORDS_Music_School_Studio_nloflc.jpg";
 
 const logo = "https://static.wixstatic.com/media/a51682_27dfdd46028443e7a016d349782ffa8f~mv2.png";
 const favicon = "/assets/WhiteStick-Logo.png";
@@ -16,8 +18,8 @@ const studioImg = "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?
 const programs = [
   {
     slug: "drum-lessons",
-    title: "Drum Lessons at ORDS Music School | ORDS",
-    desc: "Build rhythm, timing, technique, and confidence behind the kit.",
+    title: "Drum Lessons in Manassas, VA | ORDS Music School",
+    desc: "Private drum lessons in Manassas, VA focused on rhythm, timing, technique, confidence, and live performance.",
     eyebrow: "Drum Program",
     h1: "Drum Lessons",
     lead: "Build rhythm, timing, technique, and confidence behind the kit.",
@@ -32,8 +34,8 @@ const programs = [
   },
   {
     slug: "piano-lessons",
-    title: "Piano Lessons at ORDS Music School | ORDS",
-    desc: "Learn foundations, worship keys, chords, and musical confidence.",
+    title: "Piano Lessons in Manassas, VA | ORDS Music School",
+    desc: "Private piano lessons in Manassas, VA for foundations, worship keys, chords, technique, and musical confidence.",
     eyebrow: "Piano Program",
     h1: "Piano Lessons",
     lead: "Learn foundations, worship keys, chords, and musical confidence.",
@@ -45,8 +47,8 @@ const programs = [
   },
   {
     slug: "guitar-lessons",
-    title: "Guitar Lessons at ORDS Music School | ORDS",
-    desc: "Build clean chords, rhythm, tone, and confidence for modern playing.",
+    title: "Guitar Lessons in Manassas, VA | ORDS Music School",
+    desc: "Private guitar lessons in Manassas, VA for clean chords, rhythm, tone, worship playing, and confident musicianship.",
     eyebrow: "Guitar Program",
     h1: "Guitar Lessons",
     lead: "Build clean chords, rhythm, tone, and confidence for modern playing.",
@@ -61,8 +63,8 @@ const programs = [
   },
   {
     slug: "bass-lessons",
-    title: "Bass Lessons at ORDS Music School | ORDS",
-    desc: "Learn groove, pocket, timing, and how to support a band with confidence.",
+    title: "Bass Lessons in Manassas, VA | ORDS Music School",
+    desc: "Private bass lessons in Manassas, VA focused on groove, pocket, timing, and supporting a band with confidence.",
     eyebrow: "Bass Program",
     h1: "Bass Lessons",
     lead: "Learn groove, pocket, timing, and how to support a band with confidence.",
@@ -87,8 +89,8 @@ const programs = [
   },
   {
     slug: "audio-lessons",
-    title: "Audio Classes at ORDS Music School | ORDS",
-    desc: "Learn recording, mixing, production workflow, and creative audio fundamentals.",
+    title: "Audio Production & Recording Studio | ORDS Music School & Studio",
+    desc: "Recording, mixing, mastering, audio production, and creative studio support for artists, students, and worship teams.",
     eyebrow: "Audio Program",
     h1: "Audio Classes",
     lead: "Learn recording, mixing, production workflow, and creative audio fundamentals.",
@@ -191,9 +193,13 @@ function footer() {
   return `<footer class="footer"><div class="container footer-grid"><div><div class="brand footer-brand"><img src="${logo}" alt="ORDS"><span>ORDS</span></div><p>Music Academy and Studio serving students, musicians, and creatives with discipline, order, practice, and excellence.</p><p>140 Kent Dr<br>Manassas Park, VA 20111</p></div><div><h4>Contact</h4><p>Phone Number<br><a href="tel:+17034758719"><strong>(703) 475-8719</strong></a></p><p>Email<br><a href="mailto:RAMOSDS@GMAIL.COM"><strong>RAMOSDS@GMAIL.COM</strong></a></p><h4>Social</h4><a href="https://www.instagram.com/_ords_/" target="_blank" rel="noopener noreferrer">ORDS Music Instagram</a><a href="https://www.instagram.com/ordstudios_/" target="_blank" rel="noopener noreferrer">ORDS Studio Instagram</a></div><div><h4>Quick Links</h4><a href="/about">Get To Know Us</a><a href="/classes">Classes</a><a href="/drum-lessons">Drum Lessons</a><a href="/piano-lessons">Piano Lessons</a><a href="/shop">Shop</a><a href="/consultation">Book Consultation</a><a href="/ords-studio">ORDS Studio</a></div></div><div class="container footer-bottom"><span>© ORDS Music Academy</span><span>Timing is everything.</span></div></footer>`;
 }
 
-function layout({ slug, title, desc, body, image = poster }) {
+function layout({ slug, title, desc, body, image = socialImage, ogTitle, ogDesc, ogUrl, canonicalUrl }) {
   pages.push({ slug, title, desc });
-  const canonical = `${siteUrl}${pagePath(slug)}`;
+  const canonical = canonicalUrl || `${siteUrl}${pagePath(slug)}`;
+  const shareTitle = ogTitle || title;
+  const shareDesc = ogDesc || desc;
+  const shareUrl = ogUrl || canonical;
+  const shareImage = socialImage || image;
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -202,16 +208,22 @@ function layout({ slug, title, desc, body, image = poster }) {
   <title>${escapeHtml(title)}</title>
   <meta name="description" content="${escapeHtml(desc)}">
   <link rel="canonical" href="${canonical}">
+  <meta name="theme-color" content="#02040a">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="${escapeHtml(title)}">
-  <meta property="og:description" content="${escapeHtml(desc)}">
-  <meta property="og:url" content="${canonical}">
-  <meta property="og:image" content="${image}">
+  <meta property="og:site_name" content="${siteName}">
+  <meta property="og:title" content="${escapeHtml(shareTitle)}">
+  <meta property="og:description" content="${escapeHtml(shareDesc)}">
+  <meta property="og:url" content="${shareUrl}">
+  <meta property="og:image" content="${shareImage}">
+  <meta property="og:image:secure_url" content="${shareImage}">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="${escapeHtml(title)}">
-  <meta name="twitter:description" content="${escapeHtml(desc)}">
-  <meta name="twitter:image" content="${image}">
-  <link rel="icon" href="${favicon}">
+  <meta name="twitter:title" content="${escapeHtml(shareTitle)}">
+  <meta name="twitter:description" content="${escapeHtml(shareDesc)}">
+  <meta name="twitter:image" content="${shareImage}">
+  <link rel="icon" type="image/png" href="${favicon}">
+  <link rel="shortcut icon" href="${favicon}">
+  <link rel="apple-touch-icon" href="${favicon}">
+  <meta name="msapplication-TileImage" content="${favicon}">
   <link rel="preconnect" href="https://static.wixstatic.com">
   <link rel="preconnect" href="https://video.wixstatic.com">
   <link rel="preconnect" href="https://images.unsplash.com">
@@ -221,7 +233,7 @@ function layout({ slug, title, desc, body, image = poster }) {
   <script type="application/ld+json">${JSON.stringify({
     "@context": "https://schema.org",
     "@type": "MusicSchool",
-    name: "ORDS Music Academy",
+    name: siteName,
     url: siteUrl,
     telephone: "+17034758719",
     email: "RAMOSDS@GMAIL.COM",
@@ -257,12 +269,15 @@ function iconMarkup(p) {
 
 function indexPage() {
   const cards = programs.map((p) => `<a class="card reveal" href="/${p.slug}"><div class="icon">${iconMarkup(p)}</div><h3>${p.h1.replace(" Lessons", "").replace(" Coaching", "s")}</h3><p>${p.desc}</p></a>`).join("");
+  const homeTitle = "ORDS Music School & Studio | Music Lessons, Recording & Production";
+  const homeDesc = "ORDS Music School & Studio provides private music lessons, recording, mixing, mastering, and creative production services. Learn drums, piano, guitar, bass, audio production, and more.";
+  const homeShareDesc = "Private music lessons, recording, mixing, mastering, and creative production services. Learn music with purpose at ORDS.";
   const body = `${hero({ eyebrow: "Let's Get Started", h1: "ORDS", span: "Music Academy", lead: "Molding the next generation of musicians through discipline, creativity, confidence, and excellence.", image: poster, video: academyVideo })}
   <section class="light"><div class="container"><div class="section-head reveal"><span class="eyebrow tag-on-light">Music Lessons We Offer</span><h2>Choose your instrument.</h2><p>From first notes to advanced growth, we help students build skill, confidence, and discipline.</p></div><div class="cards six">${cards}</div></div></section>
   <section class="dark video-showcase welcome-videos"><div class="container"><div class="section-head reveal"><span class="eyebrow">Start Here</span><h2>See what ORDS is building.</h2><p>Watch the Music Academy introduction first, then see how ORDS Studio supports artists, churches, and creatives through recording, mixing, and production.</p></div><div class="video-grid featured mixed-video-grid final-video-grid"><div class="video-embed landscape-video reveal"><video class="video-audio" autoplay muted loop controls playsinline preload="metadata"><source src="https://res.cloudinary.com/dtmonxj1h/video/upload/q_auto/f_auto/v1779490327/WHY_ORDS_1_rdowjg.mp4" type="video/mp4"></video><button class="unmute-btn" type="button">Tap sound</button><div class="video-label"><span class="eyebrow">ORDS Music</span><h3>Music Academy Introduction</h3><p>Discover the heart behind ORDS: students, instructors, discipline, creativity, and musical growth.</p></div></div><div class="video-embed landscape-video reveal"><video class="video-audio" autoplay muted loop controls playsinline preload="metadata"><source src="https://res.cloudinary.com/dtmonxj1h/video/upload/q_auto/f_auto/v1779485136/A_little_about_us_to_you_Let_us_help_you_out_for_your_future_projects_Let_s_make_sure_your_vis_v33sux.mp4" type="video/mp4"></video><button class="unmute-btn" type="button">Tap sound</button><div class="video-label"><span class="eyebrow">ORDS Studio</span><h3>Studio Introduction</h3><p>Recording, mixing, mastering, and creative production support for artists and projects.</p></div></div></div></div></section>
   <section class="studio-band"><div class="container studio-split"><div class="reveal"><span class="eyebrow">ORDS Studio</span><h2 class="display-small">Music lessons meet creative production.</h2><p class="lead">ORDS also supports artists and creatives with recording, mixing, mastering, and audio learning pathways.</p><div class="cta-row"><a class="btn" href="/ords-studio">Explore ORDS Studio</a><a class="btn secondary" href="/audio-lessons">Audio Classes</a></div></div><div class="image-panel reveal"><img src="${studioImg}" alt="ORDS Studio audio production"></div></div></section>
   ${finalCta()}`;
-  return layout({ slug: "index", title: "ORDS Music Academy | Manassas Park", desc: "ORDS Music Academy helps students grow through drums, piano, guitar, bass, vocals, audio classes, and studio services.", body });
+  return layout({ slug: "index", title: homeTitle, desc: homeDesc, ogTitle: homeTitle, ogDesc: homeShareDesc, ogUrl: siteUrl, canonicalUrl: `${siteUrl}/`, body });
 }
 
 function programPage(p) {
@@ -336,7 +351,7 @@ function rafflePage() {
 function studioPage() {
   const body = `${hero({ eyebrow: "ORDS Studio", h1: "Create. Record.", span: "Release.", lead: "Recording, mixing, mastering, and creative audio support for artists, students, worship teams, and creatives.", image: studioImg })}
   <section class="dark"><div class="container split"><div class="image-panel reveal"><img src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=1800&q=75" alt="Live concert and worship production"></div><div class="reveal"><span class="eyebrow">Studio Services</span><h2 class="display-small">Audio support with intention.</h2><p class="lead">ORDS Studio helps creatives shape recordings with clarity, taste, and purpose.</p><div class="feature-list"><div class="feature-row"><span>01</span><div><strong>Recording & Production</strong><p>Creative support for artists, students, worship teams, and content.</p></div></div><div class="feature-row"><span>02</span><div><strong>Mixing - Oscar Ramos</strong><p>Balance, clarity, energy, and musical emotion for your tracks.</p></div></div><div class="feature-row"><span>03</span><div><strong>Mastering - Jorge Saenz</strong><p>Final polish, loudness, tone, and release-ready sound.</p></div></div></div><a class="btn" href="/consultation">Book Studio Consultation</a></div></div></section><section class="light"><div class="container"><div class="section-head reveal"><span class="eyebrow tag-on-light">Studio Services</span><h2>Build the right studio path.</h2><p>Tell us about your project and we will confirm the best recording, mixing, or mastering option during consultation.</p></div><div class="service-grid">${["Recording","Mixing","Mastering"].map((x) => `<div class="price-card reveal"><h3>${x}</h3><p class="muted">Project details and pricing confirmed during consultation.</p><div class="price">Consult</div></div>`).join("")}</div></div></section>${finalCta()}`;
-  return layout({ slug: "ords-studio", title: "ORDS Studio | Recording, Mixing & Mastering", desc: "ORDS Studio offers recording, mixing, mastering, production support, and audio learning pathways.", body, image: studioImg });
+  return layout({ slug: "ords-studio", title: "Audio Production & Recording Studio | ORDS Music School & Studio", desc: "ORDS Studio offers recording, mixing, mastering, production support, and audio learning pathways.", body, image: studioImg });
 }
 
 function simplePage(slug, title, desc, heading, message) {
