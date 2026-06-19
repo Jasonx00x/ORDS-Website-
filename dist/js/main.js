@@ -242,6 +242,16 @@ document.querySelector('form[name="merch-request"]')?.addEventListener('submit',
   }
 });
 
+document.querySelector('form[name="consultation"]')?.addEventListener('submit',event=>{
+  const timeInput=document.querySelector('#consultationTimeInput');
+  const timeSelect=customSelectByTarget('consultationTimeInput');
+  if(!timeInput?.value){
+    event.preventDefault();
+    timeSelect?.classList.add('invalid');
+    timeSelect?.scrollIntoView({behavior:'smooth',block:'center'});
+  }
+});
+
 
 // v8 consultation flow
 const flowState={instrument:'',level:'',goal:''};

@@ -232,6 +232,11 @@ section{padding:105px 0}.light{background:var(--soft);color:var(--ink)}.white{ba
 .custom-option strong{color:#0a112b}
 .custom-option:hover,.custom-option.selected{background:#0a112b;color:#fff}
 .custom-option:hover strong,.custom-option.selected strong{color:#fff}
+.consult-slot-field{display:block}
+.consult-slot-field .field-label{margin-bottom:8px}
+.consultation-time-select .custom-options{max-height:320px}
+.slot-options .custom-option{padding:12px 14px}
+.slot-options .custom-option span{font-size:14px}
 @media(max-width:980px){.merch-toolbar{align-items:flex-start;flex-direction:column}.merch-layout,.merch-grid{grid-template-columns:1fr}.merch-form-row{grid-template-columns:1fr}.merch-card .gallery-frame{height:300px}.custom-options{position:relative;top:auto;margin-top:8px;box-shadow:0 18px 50px rgba(7,9,20,.12)}}
 
 /* Mobile density pass */
