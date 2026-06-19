@@ -14,6 +14,15 @@ const academyVideo = "https://video.wixstatic.com/video/fc478d_f979a3da0eae41a48
 const poster = "https://static.wixstatic.com/media/a51682_2bb1edb8c8c141ca874042123b9b7d91~mv2.jpg";
 const experienceImg = "https://static.wixstatic.com/media/fc478d_0fc4ed886cc64a2eb07aa454308d136f~mv2.jpg";
 const studioImg = "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1800&q=75";
+const instructorInstagram = {
+  "Bryan": { url: "https://www.instagram.com/adonai.wav/", handle: "@adonai.wav" },
+  "Oscar Ramos": { url: "https://www.instagram.com/tito_ovr/", handle: "@tito_ovr" },
+  "Osiel": { url: "https://www.instagram.com/osielelbajista/", handle: "@osielelbajista" },
+  "David": { url: "https://www.instagram.com/davidvaldez421/", handle: "@davidvaldez421" },
+  "Jorge Saenz": { url: "https://www.instagram.com/jasaenz/", handle: "@jasaenz" },
+  "Bethany": { url: "https://www.instagram.com/bethanyjoysings/", handle: "@bethanyjoysings" },
+  "Vocal Team": { url: "https://www.instagram.com/bethanyjoysings/", handle: "@bethanyjoysings" }
+};
 
 const programs = [
   {
@@ -115,7 +124,7 @@ const merchProducts = [
     image: "https://static.wixstatic.com/media/a51682_6aa4ccc7427f481aa3374d31b19501f3~mv2.jpeg",
     altImage: "https://static.wixstatic.com/media/a51682_8dad7f0fab1a430dae7e5367847703da~mv2.jpeg",
     description: "Premium printed-logo hoodie with a clean ORDS front mark.",
-    sizes: ["Small", "Medium", "Large", "XL"]
+    sizes: ["Small", "Medium", "Large", "XL", "XXL"]
   },
   {
     id: "ords-hat",
@@ -156,7 +165,7 @@ const merchProducts = [
         ]
       }
     ],
-    sizes: ["Small", "Medium", "Large", "XL"]
+    sizes: ["Small", "Medium", "Large", "XL", "XXL"]
   }
 ];
 
@@ -271,6 +280,11 @@ function productPriceLabel(product) {
   return product.price ? `$${product.price}` : "Request price";
 }
 
+function instagramAnchor(name) {
+  const instagram = instructorInstagram[name];
+  return instagram ? `<a class="instagram-link" href="${instagram.url}" target="_blank" rel="noopener noreferrer" aria-label="${name} on Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.3" cy="6.7" r="1.1"></circle></svg><span>${instagram.handle}</span></a>` : "";
+}
+
 function indexPage() {
   const cards = programs.map((p) => `<a class="card reveal" href="/${p.slug}"><div class="icon">${iconMarkup(p)}</div><h3>${p.h1.replace(" Lessons", "").replace(" Coaching", "s")}</h3><p>${p.desc}</p></a>`).join("");
   const homeTitle = "ORDS Music School & Studio | Music Lessons, Recording & Production";
@@ -287,7 +301,7 @@ function indexPage() {
 function programPage(p) {
   const learn = p.learn.map((item) => `<div class="card reveal"><div class="icon">${iconMarkup(p)}</div><h3>${item}</h3><p>Hands-on coaching that builds skill, confidence, discipline, and real musical application.</p></div>`).join("");
   const audience = p.audience.map((item, i) => `<div class="feature-row reveal"><span>${String(i + 1).padStart(2, "0")}</span><div><strong>${item}</strong><p>We match each student with a path that fits their goals, pace, and musical background.</p></div></div>`).join("");
-  const instructors = p.instructors.map(([name, role, img]) => `<div class="instructor-card reveal"><img src="${img}" alt="${name}"><div class="instructor-info"><span class="role">${role}</span><h3>${name}</h3><p>Focused on musical excellence, confidence, discipline, and practical growth.</p></div></div>`).join("");
+  const instructors = p.instructors.map(([name, role, img]) => `<div class="instructor-card reveal"><img src="${img}" alt="${name}"><div class="instructor-info"><span class="role">${role}</span><h3>${name}</h3><p>Focused on musical excellence, confidence, discipline, and practical growth.</p>${instagramAnchor(name)}</div></div>`).join("");
   const body = `${hero({ eyebrow: p.eyebrow, h1: p.h1, span: "ORDS Music School", lead: p.lead, image: p.image })}
   <section class="light"><div class="container"><div class="section-head reveal"><span class="eyebrow tag-on-light">${p.eyebrow}</span><h2>What you'll learn.</h2><p>Personalized lessons that help students grow musically and confidently.</p></div><div class="cards">${learn}</div></div></section>
   <section class="dark"><div class="container split"><div class="image-panel reveal"><img src="${p.image}" alt="${p.h1} at ORDS"></div><div class="reveal"><span class="eyebrow">Who Can Join?</span><h2 class="display-small">${p.h1} for every skill level.</h2><p class="lead">Whether you're just starting or ready to refine your skill, ORDS helps students grow with personalized instruction and musical discipline.</p><div class="feature-list">${audience}</div><a class="btn" href="/consultation">Book Free Consultation</a></div></div></section>
@@ -299,9 +313,9 @@ function programPage(p) {
 
 function aboutPage() {
   const team = programs.flatMap((p) => p.instructors).filter((item, idx, arr) => arr.findIndex((x) => x[0] === item[0]) === idx);
-  const cards = team.map(([name, role, img]) => `<div class="instructor-card reveal"><img src="${img}" alt="${name}"><div class="instructor-info"><span class="role">${role}</span><h3>${name}</h3><p>Part of the ORDS team helping students grow with order, discipline, practice, and excellence.</p></div></div>`).join("");
+  const cards = team.map(([name, role, img]) => `<div class="instructor-card reveal"><img src="${img}" alt="${name}"><div class="instructor-info"><span class="role">${role}</span><h3>${name}</h3><p>Part of the ORDS team helping students grow with order, discipline, practice, and excellence.</p>${instagramAnchor(name)}</div></div>`).join("");
   const body = `${hero({ eyebrow: "Get To Know Us", h1: "Discipline. Order.", span: "Practice. Excellence.", lead: "Our mission is to inspire students to uncover and nurture their creative side in a warm and inviting environment.", image: "https://static.wixstatic.com/media/a51682_2d3321eee0154056afd009e56a986496~mv2.jpg" })}
-  <section class="white"><div class="container split"><div class="reveal"><span class="eyebrow tag-on-light">About ORDS</span><h2 class="display-small">A passionate team of talented and creative instructors.</h2><p style="font-size:18px;line-height:1.8;color:#596174">With personalized lessons tailored for each student, ORDS exists to develop musicians with skill, confidence, discipline, and purpose.</p></div><div class="image-panel reveal about-image-panel"><img src="${studioImg}" alt="ORDS music studio"></div></div></section>
+  <section class="white about-intro"><div class="container"><div class="reveal about-copy"><span class="eyebrow tag-on-light">About ORDS</span><h2 class="display-small">A passionate team of talented and creative instructors.</h2><p style="font-size:18px;line-height:1.8;color:#596174">With personalized lessons tailored for each student, ORDS exists to develop musicians with skill, confidence, discipline, and purpose.</p></div></div></section>
   <section class="dark"><div class="container"><div class="section-head reveal"><span class="eyebrow">The Team</span><h2>Meet ORDS.</h2><p>Instructors and mentors serving students, musicians, and creatives.</p></div><div class="instructors">${cards}</div></div></section>${finalCta()}`;
   return layout({ slug: "about", title: "Get To Know Us | ORDS", desc: "Meet the ORDS Music Academy team and learn the mission behind the academy.", body });
 }
