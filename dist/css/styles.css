@@ -252,8 +252,12 @@ section{padding:105px 0}.light{background:var(--soft);color:var(--ink)}.white{ba
 .price-request{font-size:13px!important;line-height:1.15;text-align:right;color:#667086!important;max-width:92px}
 .video-thumb .media-play{font-size:11px}
 .about-copy{max-width:920px}
+.single-instructor{grid-template-columns:minmax(0,680px);justify-content:center}
 @media(max-width:680px){
   section{padding:72px 0}
+  .wave-divider{height:32px}
+  .home-classes{padding-top:30px}
+  .home-classes .section-head{margin-bottom:34px}
   .card{padding:20px;border-radius:22px}
   .icon{width:34px;height:34px;border-radius:12px;margin-bottom:14px}
   .icon svg{width:19px;height:19px;stroke-width:2.2}
@@ -262,6 +266,7 @@ section{padding:105px 0}.light{background:var(--soft);color:var(--ink)}.white{ba
   .card p{font-size:14px;line-height:1.55}
   .image-panel{min-height:260px;border-radius:26px}
   .instructors{gap:18px}
+  .single-instructor{grid-template-columns:1fr}
   .instructor-card{grid-template-columns:118px 1fr!important;min-height:0;border-radius:22px}
   .instructor-card img{height:100%!important;min-height:150px;object-position:center top}
   .instructor-info{padding:18px}
