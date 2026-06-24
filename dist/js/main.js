@@ -105,6 +105,7 @@ function setCardVariant(card,variantName,mediaIndex=0){
   }
   card.dataset.selectedVariant=variant.name;
   card.querySelectorAll('.variant-swatch').forEach(btn=>btn.classList.toggle('active',btn.dataset.variant===variant.name));
+  card.querySelectorAll('.variant-preview').forEach(btn=>btn.classList.toggle('active',btn.dataset.variant===variant.name));
   renderMediaRail(card,product,variant,mediaIndex);
 }
 function setMerchProduct(product){
@@ -212,10 +213,23 @@ customSelects.forEach(select=>{
 });
 merchCards.forEach(card=>{
   const product=merchProducts.find(item=>item.id===card.dataset.productId);
-  if(product?.variants?.length)setCardVariant(card,product.variants[0].name,0);
+  if(product?.variants?.length&&!card.classList.contains('shop-product-card'))setCardVariant(card,product.variants[0].name,0);
   card.addEventListener('click',event=>{
-    const swatch=event.target.closest('.variant-swatch');
+    const shopVariant=event.target.closest('[data-shop-variant]');
+    const swatch=event.target.closest('.variant-swatch,.variant-preview');
     const thumb=event.target.closest('.media-thumb');
+    if(shopVariant){
+      const img=card.querySelector('.shop-active-image');
+      const variant=shopVariant.dataset.shopVariant;
+      if(img&&shopVariant.dataset.shopImage){
+        img.src=shopVariant.dataset.shopImage;
+        img.alt=`${variant} ${card.dataset.productName}`;
+      }
+      card.querySelectorAll('[data-shop-variant]').forEach(btn=>btn.classList.toggle('active',btn.dataset.shopVariant===variant));
+      event.preventDefault();
+      event.stopPropagation();
+      return;
+    }
     if(swatch){
       setCardVariant(card,swatch.dataset.variant,0);
       if(card.classList.contains('selected'))setMerchProduct(product);

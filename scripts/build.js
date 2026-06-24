@@ -7,6 +7,7 @@ const dist = path.join(root, "dist");
 const siteUrl = "https://ordsmusic.com";
 const siteName = "ORDS Music School & Studio";
 const socialImage = "https://res.cloudinary.com/dtmonxj1h/image/upload/q_auto/f_auto/v1781886182/ORDS_Music_School_Studio_nloflc.jpg";
+const assetVersion = "20260624-shop-tee";
 
 const logo = "https://static.wixstatic.com/media/a51682_27dfdd46028443e7a016d349782ffa8f~mv2.png";
 const favicon = "/assets/WhiteStick-Logo.png";
@@ -22,6 +23,48 @@ const instructorInstagram = {
   "Jorge Saenz": { url: "https://www.instagram.com/jasaenz/", handle: "@jasaenz" },
   "Bethany": { url: "https://www.instagram.com/bethanyjoysings/", handle: "@bethanyjoysings" },
   "Vocal Team": { url: "https://www.instagram.com/bethanyjoysings/", handle: "@bethanyjoysings" }
+};
+
+const instructorBios = {
+  "Oscar Ramos": "Oscar is a dedicated drummer and educator focused on building disciplined musicians with strong foundations, confidence, and excellence in worship and performance.",
+  "Bryan": "Bryan has over 10 years of drumming experience with a foundation built through school band. He helps students grow through fundamentals, timing, and disciplined practice.",
+  "David": "David builds bass and piano students with strong timing, groove, and musical understanding so they can lock in, serve the band, and play with excellence.",
+  "Osiel": "Osiel teaches practical musicianship with discipline and clarity, helping students build timing, technique, confidence, and worship-ready playing.",
+  "Jorge Saenz": "Jorge specializes in contemporary guitar, tone, technique, and musical expression, with coaching for pedalboards and confident live playing.",
+  "Vocal Team": "Bethany coaches vocal strength, control, and confidence, helping students develop their voice with discipline and excellence for worship and performance."
+};
+
+const audienceDetails = {
+  "drum-lessons": {
+    "Beginners": "Start with grip, posture, counting, and simple grooves that build confidence behind the kit.",
+    "Intermediate Players": "Strengthen fills, dynamics, coordination, and consistency for cleaner practice and performance.",
+    "Worship & Live Performance": "Learn timing, transitions, restraint, and how to serve the song in a live band setting."
+  },
+  "piano-lessons": {
+    "New Players": "Build note reading, hand position, rhythm, and chord basics with a patient foundation.",
+    "Growing Musicians": "Develop technique, chord movement, timing, and confidence across songs and styles.",
+    "Worship Keys": "Learn practical voicings, pads, progressions, and how to support a worship team musically."
+  },
+  "guitar-lessons": {
+    "Beginners": "Start with clean chords, strumming, timing, and simple songs that make practice feel possible.",
+    "Worship Guitarists": "Build rhythm, tone, transitions, and parts that fit well in a live worship mix.",
+    "Pedalboard Coaching": "Understand signal flow, tone shaping, effects choices, and practical pedalboard setup."
+  },
+  "bass-lessons": {
+    "Beginners": "Learn finger technique, timing, fretboard basics, and simple grooves with a strong foundation.",
+    "Band Players": "Work on pocket, transitions, note choice, and locking in with drums for a tighter band sound.",
+    "Worship Bassists": "Develop restraint, dynamics, tone, and movement that supports the song and the team."
+  },
+  "vocal-coaching": {
+    "New Singers": "Build pitch, breath, tone, and healthy vocal habits in a comfortable first-step environment.",
+    "Worship Vocalists": "Work on blend, timing, dynamics, control, and leading songs with confidence and care.",
+    "Performers": "Grow stage presence, expression, consistency, and confidence for live vocal moments."
+  },
+  "audio-lessons": {
+    "Beginners": "Learn the language of recording, signal flow, session setup, and clean audio basics.",
+    "Musicians": "Understand how to capture ideas, arrange parts, and communicate better in the studio.",
+    "Future Producers": "Build workflow, mixing decisions, creative direction, and release-minded production habits."
+  }
 };
 
 const programs = [
@@ -116,17 +159,6 @@ const programs = [
 
 const merchProducts = [
   {
-    id: "logo-hoodie",
-    name: "ORDS Printed Logo Hoodie",
-    category: "Hoodies",
-    price: 55,
-    status: "Available",
-    image: "https://static.wixstatic.com/media/a51682_6aa4ccc7427f481aa3374d31b19501f3~mv2.jpeg",
-    altImage: "https://static.wixstatic.com/media/a51682_8dad7f0fab1a430dae7e5367847703da~mv2.jpeg",
-    description: "Premium printed-logo hoodie with a clean ORDS front mark.",
-    sizes: ["Small", "Medium", "Large", "XL", "XXL"]
-  },
-  {
     id: "ords-hat",
     name: "ORDS Hat",
     category: "Hats",
@@ -138,13 +170,14 @@ const merchProducts = [
     sizes: ["One Size"]
   },
   {
-    id: "embroidered-logo-shirt",
-    name: "ORDS Embroidered Tee",
-    category: "Shirts",
-    price: null,
+    id: "classic-oversized-tee",
+    name: "Classic Oversized T's",
+    category: "Tees",
+    price: 45,
     status: "New",
+    paymentUrl: "https://square.link/u/6FmCBHa3",
     image: "https://res.cloudinary.com/dtmonxj1h/image/upload/q_auto/f_auto/v1781816311/IMG_3691_jku9ln.heic",
-    description: "ORDS tee with an embroidered logo detail.",
+    description: "Oversized ORDS tee with embroidered logo details, available in black or white.",
     variants: [
       {
         name: "Black",
@@ -238,7 +271,7 @@ function layout({ slug, title, desc, body, image = socialImage, ogTitle, ogDesc,
   <link rel="preconnect" href="https://images.unsplash.com">
   <link rel="preconnect" href="https://res.cloudinary.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/styles.css?v=${assetVersion}">
   <script type="application/ld+json">${JSON.stringify({
     "@context": "https://schema.org",
     "@type": "MusicSchool",
@@ -257,7 +290,7 @@ function layout({ slug, title, desc, body, image = socialImage, ogTitle, ogDesc,
     sameAs: ["https://www.instagram.com/_ords_/", "https://www.instagram.com/ordstudios_/"]
   })}</script>
 </head>
-<body>${nav()}${body}${footer()}<script src="/js/main.js"></script></body>
+<body>${nav()}${body}${footer()}<script src="/js/main.js?v=${assetVersion}"></script></body>
 </html>`;
 }
 
@@ -280,6 +313,38 @@ function productPriceLabel(product) {
   return product.price ? `$${product.price}` : "Request price";
 }
 
+function productSlug(product) {
+  return product.id === "classic-oversized-tee" ? "classic-oversized-tee" : "ords-hat";
+}
+
+function productThanksSlug(product) {
+  return product.id === "classic-oversized-tee" ? "classic-tee-thank-you" : "hat-thank-you";
+}
+
+function productVariants(product) {
+  return product.variants || [
+    { name: "Default", color: "", media: [{ type: "image", src: product.image }, ...(product.altImage ? [{ type: "image", src: product.altImage }] : [])] }
+  ];
+}
+
+function productGallery(product, mode = "card") {
+  const variants = productVariants(product);
+  const activeVariant = variants[0];
+  const activeMedia = activeVariant.media[0];
+  const galleryClass = variants.some((variant) => variant.media.length > 1) ? " product-gallery" : "";
+  const variantData = escapeHtml(JSON.stringify(variants));
+  const mainMedia = activeMedia.type === "video"
+    ? `<video class="merch-main-media" autoplay loop muted defaultMuted playsinline preload="none" poster="${activeMedia.poster || product.image}"><source src="${activeMedia.src}" type="video/mp4"></video>`
+    : `<img class="merch-main-media gallery-main" src="${activeMedia.src}" alt="${escapeHtml(product.name)}" loading="lazy" decoding="async">`;
+  const variantControls = product.variants ? `<div class="variant-row" aria-label="${escapeHtml(product.name)} color options"><span class="variant-label">Color</span>${variants.map((variant, index) => `<button class="variant-swatch${index === 0 ? " active" : ""}" type="button" data-variant="${escapeHtml(variant.name)}" aria-label="${escapeHtml(variant.name)}" style="--swatch:${variant.color}"><span></span>${variant.name}</button>`).join("")}</div>` : "";
+  const mediaRail = activeVariant.media.length > 1 ? `<div class="media-rail">${activeVariant.media.map((media, index) => `<button class="media-thumb${media.type === "video" ? " video-thumb" : ""}${index === 0 ? " active" : ""}" type="button" data-media-index="${index}" aria-label="${media.type === "video" ? "View product video" : `View product photo ${index + 1}`}">${media.type === "video" ? `<span class="media-play">Video</span>` : `<img src="${media.src}" alt="" loading="lazy" decoding="async">`}</button>`).join("")}</div>` : "";
+  const variantPreviews = mode === "detail" && product.variants ? `<div class="variant-preview-grid">${variants.map((variant, index) => {
+    const preview = variant.media.find((media) => media.type === "image") || variant.media[0];
+    return `<button class="variant-preview${index === 0 ? " active" : ""}" type="button" data-variant="${escapeHtml(variant.name)}" aria-label="Show ${escapeHtml(variant.name)} ${escapeHtml(product.name)}"><img src="${preview.src}" alt="${escapeHtml(variant.name)} ${escapeHtml(product.name)}" loading="lazy" decoding="async"><span>${variant.name}</span></button>`;
+  }).join("")}</div>` : "";
+  return `<div class="merch-card${galleryClass} ${mode === "detail" ? "product-detail-gallery" : "product-card-gallery"}" data-product-id="${product.id}" data-product-name="${escapeHtml(product.name)}" data-product-price="${product.price || ""}" data-product-price-label="${productPriceLabel(product)}" data-product-sizes="${product.sizes.join("|")}" data-product-variants="${variantData}"><div class="gallery-frame">${mainMedia}<span class="stock-pill">${product.status}</span></div>${variantControls}${mediaRail}${variantPreviews}</div>`;
+}
+
 function instagramAnchor(name) {
   const instagram = instructorInstagram[name];
   return instagram ? `<a class="instagram-link" href="${instagram.url}" target="_blank" rel="noopener noreferrer" aria-label="${name} on Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.3" cy="6.7" r="1.1"></circle></svg><span>${instagram.handle}</span></a>` : "";
@@ -289,8 +354,16 @@ function aboutRole(name, role) {
   return name === "David" ? "Bass / Piano Instructor" : role;
 }
 
+function instructorBio(name, fallback) {
+  return instructorBios[name] || fallback;
+}
+
+function audienceDescription(slug, item) {
+  return audienceDetails[slug]?.[item] || "Personalized guidance matched to the student's goals, pace, and musical background.";
+}
+
 function indexPage() {
-  const cards = programs.map((p) => `<a class="card reveal" href="/${p.slug}"><div class="icon">${iconMarkup(p)}</div><h3>${p.h1.replace(" Lessons", "").replace(" Coaching", "s")}</h3><p>${p.desc}</p></a>`).join("");
+  const cards = programs.map((p) => `<a class="card program-card reveal" href="/${p.slug}"><div class="icon">${iconMarkup(p)}</div><h3>${p.h1.replace(" Lessons", "").replace(" Coaching", "s")}</h3><p>${p.desc}</p><span class="card-cta">Explore lessons <b>→</b></span></a>`).join("");
   const homeTitle = "ORDS Music School & Studio | Music Lessons, Recording & Production";
   const homeDesc = "ORDS Music School & Studio provides private music lessons, recording, mixing, mastering, and creative production services. Learn drums, piano, guitar, bass, audio production, and more.";
   const homeShareDesc = "Private music lessons, recording, mixing, mastering, and creative production services. Learn music with purpose at ORDS.";
@@ -304,9 +377,9 @@ function indexPage() {
 
 function programPage(p) {
   const learn = p.learn.map((item) => `<div class="card reveal"><div class="icon">${iconMarkup(p)}</div><h3>${item}</h3><p>Hands-on coaching that builds skill, confidence, discipline, and real musical application.</p></div>`).join("");
-  const audience = p.audience.map((item, i) => `<div class="feature-row reveal"><span>${String(i + 1).padStart(2, "0")}</span><div><strong>${item}</strong><p>We match each student with a path that fits their goals, pace, and musical background.</p></div></div>`).join("");
+  const audience = p.audience.map((item, i) => `<div class="feature-row reveal"><span>${String(i + 1).padStart(2, "0")}</span><div><strong>${item}</strong><p>${audienceDescription(p.slug, item)}</p></div></div>`).join("");
   const instructorGridClass = p.instructors.length === 1 ? "instructors single-instructor" : "instructors";
-  const instructors = p.instructors.map(([name, role, img]) => `<div class="instructor-card reveal"><img src="${img}" alt="${name}"><div class="instructor-info"><span class="role">${role}</span><h3>${name}</h3><p>Focused on musical excellence, confidence, discipline, and practical growth.</p>${instagramAnchor(name)}</div></div>`).join("");
+  const instructors = p.instructors.map(([name, role, img]) => `<div class="instructor-card reveal"><img src="${img}" alt="${name}"><div class="instructor-info"><span class="role">${role}</span><h3>${name}</h3><p>${instructorBio(name, "Focused on musical excellence, confidence, discipline, and practical growth.")}</p>${instagramAnchor(name)}</div></div>`).join("");
   const body = `${hero({ eyebrow: p.eyebrow, h1: p.h1, span: "ORDS Music School", lead: p.lead, image: p.image })}
   <section class="light"><div class="container"><div class="section-head reveal"><span class="eyebrow tag-on-light">${p.eyebrow}</span><h2>What you'll learn.</h2><p>Personalized lessons that help students grow musically and confidently.</p></div><div class="cards">${learn}</div></div></section>
   <section class="dark"><div class="container split"><div class="image-panel reveal"><img src="${p.image}" alt="${p.h1} at ORDS"></div><div class="reveal"><span class="eyebrow">Who Can Join?</span><h2 class="display-small">${p.h1} for every skill level.</h2><p class="lead">Whether you're just starting or ready to refine your skill, ORDS helps students grow with personalized instruction and musical discipline.</p><div class="feature-list">${audience}</div><a class="btn" href="/consultation">Book Free Consultation</a></div></div></section>
@@ -318,7 +391,7 @@ function programPage(p) {
 
 function aboutPage() {
   const team = programs.flatMap((p) => p.instructors).filter((item, idx, arr) => arr.findIndex((x) => x[0] === item[0]) === idx);
-  const cards = team.map(([name, role, img]) => `<div class="instructor-card reveal"><img src="${img}" alt="${name}"><div class="instructor-info"><span class="role">${aboutRole(name, role)}</span><h3>${name}</h3><p>Part of the ORDS team helping students grow with order, discipline, practice, and excellence.</p>${instagramAnchor(name)}</div></div>`).join("");
+  const cards = team.map(([name, role, img]) => `<div class="instructor-card reveal"><img src="${img}" alt="${name}"><div class="instructor-info"><span class="role">${aboutRole(name, role)}</span><h3>${name}</h3><p>${instructorBio(name, "Part of the ORDS team helping students grow with order, discipline, practice, and excellence.")}</p>${instagramAnchor(name)}</div></div>`).join("");
   const body = `${hero({ eyebrow: "Get To Know Us", h1: "Discipline. Order.", span: "Practice. Excellence.", lead: "Our mission is to inspire students to uncover and nurture their creative side in a warm and inviting environment.", image: "https://static.wixstatic.com/media/a51682_2d3321eee0154056afd009e56a986496~mv2.jpg" })}
   <section class="white about-intro"><div class="container"><div class="reveal about-copy"><span class="eyebrow tag-on-light">About ORDS</span><h2 class="display-small">A passionate team of talented and creative instructors.</h2><p style="font-size:18px;line-height:1.8;color:#596174">With personalized lessons tailored for each student, ORDS exists to develop musicians with skill, confidence, discipline, and purpose.</p></div></div></section>
   <section class="dark"><div class="container"><div class="section-head reveal"><span class="eyebrow">The Team</span><h2>Meet ORDS.</h2><p>Instructors and mentors serving students, musicians, and creatives.</p></div><div class="instructors">${cards}</div></div></section>${finalCta()}`;
@@ -326,7 +399,7 @@ function aboutPage() {
 }
 
 function classesPage() {
-  const cards = programs.map((p) => `<a class="card reveal" href="/${p.slug}"><div class="icon">${iconMarkup(p)}</div><h3>${p.h1}</h3><p>${p.desc}</p></a>`).join("");
+  const cards = programs.map((p) => `<a class="card program-card reveal" href="/${p.slug}"><div class="icon">${iconMarkup(p)}</div><h3>${p.h1}</h3><p>${p.desc}</p><span class="card-cta">View program <b>→</b></span></a>`).join("");
   const body = `${hero({ eyebrow: "Classes", h1: "Find your", span: "next step.", lead: "Explore drums, piano, guitar, bass, vocals, audio classes, and studio pathways.", image: "https://static.wixstatic.com/media/fc478d_957e95071a06421589ff1c5d2901faaa~mv2.jpg" })}
   <section class="light"><div class="container"><div class="section-head reveal"><span class="eyebrow tag-on-light">Programs</span><h2>Choose a path.</h2><p>Each program is built for practical growth, confidence, and musical excellence.</p></div><div class="cards six">${cards}</div></div></section>${finalCta()}`;
   return layout({ slug: "classes", title: "Classes | ORDS Music Academy", desc: "Explore drums, piano, guitar, bass, vocals, and audio classes at ORDS.", body });
@@ -341,30 +414,39 @@ function consultationPage() {
 function shopPage() {
   const productCards = merchProducts.map((product) => {
     const priceLabel = productPriceLabel(product);
-    const productValue = `${product.name} - ${priceLabel}`;
-    const variants = product.variants || [
-      { name: "Default", color: "", media: [{ type: "image", src: product.image }, ...(product.altImage ? [{ type: "image", src: product.altImage }] : [])] }
-    ];
-    const activeVariant = variants[0];
-    const activeMedia = activeVariant.media[0];
-    const galleryClass = variants.some((variant) => variant.media.length > 1) ? " product-gallery" : "";
-    const variantData = escapeHtml(JSON.stringify(variants));
-    const mainMedia = activeMedia.type === "video"
-      ? `<video class="merch-main-media" autoplay loop muted defaultMuted playsinline preload="none" poster="${activeMedia.poster || product.image}"><source src="${activeMedia.src}" type="video/mp4"></video>`
-      : `<img class="merch-main-media gallery-main" src="${activeMedia.src}" alt="${escapeHtml(product.name)}" loading="lazy" decoding="async">`;
-    const variantControls = product.variants ? `<div class="variant-row" aria-label="${escapeHtml(product.name)} color options"><span class="variant-label">Color</span>${variants.map((variant, index) => `<button class="variant-swatch${index === 0 ? " active" : ""}" type="button" data-variant="${escapeHtml(variant.name)}" aria-label="${escapeHtml(variant.name)}" style="--swatch:${variant.color}"><span></span>${variant.name}</button>`).join("")}</div>` : "";
-    const mediaRail = activeVariant.media.length > 1 ? `<div class="media-rail">${activeVariant.media.map((media, index) => `<button class="media-thumb${media.type === "video" ? " video-thumb" : ""}${index === 0 ? " active" : ""}" type="button" data-media-index="${index}" aria-label="${media.type === "video" ? "View product video" : `View product photo ${index + 1}`}">${media.type === "video" ? `<span class="media-play">Video</span>` : `<img src="${media.src}" alt="" loading="lazy" decoding="async">`}</button>`).join("")}</div>` : "";
     const priceMarkup = product.price ? `<strong>${priceLabel}</strong>` : `<strong class="price-request">Request price</strong>`;
-    return `<article class="product-card merch-card${galleryClass} reveal" data-product-id="${product.id}" data-product-name="${escapeHtml(product.name)}" data-product-price="${product.price || ""}" data-product-price-label="${priceLabel}" data-product-sizes="${product.sizes.join("|")}" data-product-variants="${variantData}"><div class="gallery-frame">${mainMedia}<span class="stock-pill">${product.status}</span></div>${variantControls}${mediaRail}<div class="product-body"><div class="product-meta"><span>${product.category}</span>${priceMarkup}</div><h3>${product.name}</h3><p>${product.description}</p><div class="size-chips">${product.sizes.map((size) => `<span>${size}</span>`).join("")}</div><button class="btn merch-add" type="button" data-add="${escapeHtml(productValue)}" data-product-id="${product.id}">Add to Request</button></div></article>`;
+    const previewFrame = product.variants
+      ? `<div class="gallery-frame shop-variant-frame"><img class="merch-main-media gallery-main shop-active-image" src="${product.variants[0].media.find((media) => media.type === "image").src}" alt="${escapeHtml(product.variants[0].name)} ${escapeHtml(product.name)}" loading="lazy" decoding="async"><span class="stock-pill">${product.status}</span><span class="color-count-pill">Black + White</span></div>`
+      : `<div class="gallery-frame"><img class="merch-main-media gallery-main" src="${product.image}" alt="${escapeHtml(product.name)}" loading="lazy" decoding="async"><span class="stock-pill">${product.status}</span></div>`;
+    const colorNote = product.variants ? `<div class="shop-color-note">${product.variants.map((variant, index) => `<button class="${index === 0 ? "active" : ""}" type="button" data-shop-variant="${escapeHtml(variant.name)}" data-shop-image="${(variant.media.find((media) => media.type === "image") || variant.media[0]).src}"><i style="--swatch:${variant.color}"></i>${variant.name}</button>`).join("")}</div>` : "";
+    return `<article class="product-card merch-card shop-product-card reveal" data-product-id="${product.id}" data-product-name="${escapeHtml(product.name)}" data-product-price="${product.price || ""}" data-product-price-label="${priceLabel}" data-product-sizes="${product.sizes.join("|")}" data-product-variants="${escapeHtml(JSON.stringify(productVariants(product)))}">${previewFrame}<div class="product-body"><div class="product-meta"><span>${product.category}</span>${priceMarkup}</div><h3>${product.name}</h3><p>${product.description}</p>${colorNote}<div class="size-chips">${product.sizes.map((size) => `<span>${size}</span>`).join("")}</div><a class="btn merch-buy" href="/${productSlug(product)}">View Details</a></div></article>`;
   }).join("");
-  const itemOptions = merchProducts.map((product) => {
-    const priceLabel = productPriceLabel(product);
-    return `<button type="button" class="custom-option" data-value="${product.name} - ${priceLabel}"><span>${product.name}</span><strong>${priceLabel}</strong></button>`;
-  }).join("");
-  const preferenceOptions = ["Pick up at ORDS", "Ask about shipping", "Pay in person", "Send payment link"].map((preference) => `<button type="button" class="custom-option" data-value="${preference}"><span>${preference}</span></button>`).join("");
   const body = `${hero({ eyebrow: "Merch", h1: "Timing is", span: "everything.", lead: "ORDS merch for students, musicians, and the ORDS community.", image: "https://static.wixstatic.com/media/a51682_ab3ee4b5d51f43f5a96189e9c864d1dc~mv2.jpeg" })}
-  <section class="light merch-section" id="shop"><div class="container"><div class="section-head reveal"><span class="eyebrow tag-on-light">ORDS Essentials</span><h2>Shop merch.</h2><p>Build a merch request and the ORDS team will follow up to confirm stock, pickup, and payment.</p></div><div class="merch-toolbar reveal"><div><strong>Featured Drop</strong><span>Hoodies, hats, and tees</span></div><a class="btn secondary" href="#checkout">Review Request</a></div><div class="shop-layout merch-layout"><div class="product-grid merch-grid">${productCards}</div><aside class="checkout-card merch-request-card reveal" id="checkout"><span class="eyebrow tag-on-light">Merch Request</span><h2>Build Your Request</h2><div class="selected-merch"><span id="checkout-item">Select an item</span><strong id="checkout-price">$0</strong></div><form name="merch-request" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/thank-you"><input type="hidden" name="form-name" value="merch-request"><input type="hidden" name="subject" value="New ORDS merch request"><p class="hidden-field"><label>Do not fill this out: <input name="bot-field"></label></p><input type="hidden" name="current-item" id="checkoutItemInput"><input type="hidden" name="selected-color" id="checkoutColorInput"><input type="hidden" name="estimated-total" id="checkoutTotalInput"><input type="hidden" name="items" id="checkoutItemsInput" required><input type="hidden" name="selected-item" id="merchItemSelect"><input type="hidden" name="size" id="merchSizeSelect"><input type="hidden" name="preference" id="merchPreferenceInput" required><div class="merch-field"><span class="field-label">Item</span><div class="custom-select" data-target="merchItemSelect"><button class="custom-select-trigger" type="button"><span>Choose an item</span></button><div class="custom-options">${itemOptions}</div></div></div><div class="merch-form-row"><div class="merch-field"><span class="field-label">Size</span><div class="custom-select" data-target="merchSizeSelect" id="merchSizeControl"><button class="custom-select-trigger" type="button"><span>Choose size</span></button><div class="custom-options"></div></div></div><label>Quantity<input name="quantity" id="merchQuantity" type="number" min="1" max="20" value="1"></label></div><button class="btn secondary merch-add-line" type="button">Add Item To Request</button><div class="request-list" id="requestList"><span>No items added yet.</span></div><div class="merch-field"><span class="field-label">Pickup / Payment Preference</span><div class="custom-select" data-target="merchPreferenceInput"><button class="custom-select-trigger" type="button"><span>Choose preference</span></button><div class="custom-options">${preferenceOptions}</div></div></div><label>Name<input name="name" required placeholder="Your name"></label><label>Email<input name="email" type="email" required placeholder="Your email"></label><label>Phone<input name="phone" type="tel" required placeholder="Your phone"></label><label>Notes<textarea name="message" rows="3" placeholder="Sizes for multiple items, pickup timing, or questions."></textarea></label><button class="btn" type="submit">Send Merch Request</button><p class="small">No payment is collected here. ORDS will confirm availability and next steps.</p></form></aside></div></div></section>`;
-  return layout({ slug: "shop", title: "Shop | ORDS Music Academy", desc: "Shop ORDS hoodies and hats.", body });
+  <section class="light merch-section" id="shop"><div class="container"><div class="section-head reveal"><span class="eyebrow tag-on-light">ORDS Essentials</span><h2>Shop merch.</h2><p>View each product for closer photos, sizing, and checkout or request details.</p></div><div class="merch-toolbar reveal"><div><strong>Featured Drop</strong><span>Classic Oversized T's and ORDS hats</span></div><a class="btn secondary" href="/classic-oversized-tee">Shop Tees</a></div><div class="product-grid merch-grid shop-catalog">${productCards}</div></div></section>`;
+  return layout({ slug: "shop", title: "Shop | ORDS Music Academy", desc: "Shop ORDS Classic Oversized T's and hats.", body });
+}
+
+function productPage(product) {
+  const isTee = product.id === "classic-oversized-tee";
+  const priceLine = product.price ? "Price" : "Request details";
+  const action = product.paymentUrl
+    ? `<a class="btn product-primary-action" href="${product.paymentUrl}" target="_blank" rel="noopener noreferrer">Buy Now</a>`
+    : `<form class="product-form" name="hat-request" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/${productThanksSlug(product)}"><input type="hidden" name="form-name" value="hat-request"><input type="hidden" name="subject" value="New ORDS hat request"><input type="hidden" name="product" value="${escapeHtml(product.name)}"><p class="hidden-field"><label>Do not fill this out: <input name="bot-field"></label></p><label>Name<input name="name" required placeholder="Your name"></label><label>Email<input name="email" type="email" required placeholder="Your email"></label><label>Phone<input name="phone" type="tel" required placeholder="Your phone"></label><label>Pickup notes<textarea name="message" rows="3" placeholder="Size, pickup timing, or questions."></textarea></label><button class="btn product-primary-action" type="submit">Request Hat Details</button></form>`;
+  const details = isTee
+    ? ["Oversized fit with a clean everyday shape", "Embroidered ORDS logo detail", "Available in black and white", "Sizes Small through XXL"]
+    : ["One size", "Clean ORDS front mark", "Everyday student and supporter fit", "Pickup details confirmed by ORDS"];
+  const body = `<main class="light product-detail-page"><section class="product-detail-section"><div class="container"><a class="back-link reveal" href="/shop">Back to shop</a><div class="product-detail-grid"><div class="reveal">${productGallery(product, "detail")}</div><div class="product-detail-panel reveal"><span class="eyebrow tag-on-light">${product.category}</span><div class="product-title-row"><h1>${product.name}</h1>${product.price ? `<strong>$${product.price}</strong>` : ""}</div><p class="product-lead">${product.description}</p><div class="product-price-row"><span>${priceLine}</span>${product.price ? `<strong>$${product.price}</strong>` : ""}</div><div class="product-fit-note"><strong>Available sizes</strong><span>${product.sizes.join(" / ")}</span></div><div class="size-chips product-size-chips">${product.sizes.map((size) => `<span>${size}</span>`).join("")}</div><div class="detail-list">${details.map((detail) => `<div><span></span><p>${detail}</p></div>`).join("")}</div><div class="product-actions">${action}</div></div></div></div></section></main>`;
+  return layout({ slug: productSlug(product), title: `${product.name} | ORDS Shop`, desc: product.description, image: product.image, body });
+}
+
+function productThankYouPage(product) {
+  const isTee = product.id === "classic-oversized-tee";
+  const heading = isTee ? "Classic Tee Order" : "Hat Request";
+  const message = isTee
+    ? "Thanks for supporting ORDS. Your Classic Oversized T's order is being handled through checkout."
+    : "Your ORDS hat request was received. The ORDS team will follow up with pickup or payment details.";
+  const body = `<main class="white product-thanks"><div class="container center reveal visible"><span class="eyebrow tag-on-light">${heading}</span><h1>Thank you.</h1><p>${message}</p><div class="cta-row" style="justify-content:center"><a class="btn" href="/shop">Back to Shop</a><a class="btn secondary" href="/consultation">Book Consultation</a></div></div></main>`;
+  return layout({ slug: productThanksSlug(product), title: `${heading} Thank You | ORDS`, desc: message, body, image: product.image });
 }
 
 function rafflePage() {
@@ -393,6 +475,10 @@ writePage("about", aboutPage());
 writePage("classes", classesPage());
 writePage("consultation", consultationPage());
 writePage("shop", shopPage());
+merchProducts.forEach((product) => {
+  writePage(productSlug(product), productPage(product));
+  writePage(productThanksSlug(product), productThankYouPage(product));
+});
 writePage("raffle", rafflePage());
 writePage("ords-studio", studioPage());
 programs.forEach((p) => writePage(p.slug, programPage(p)));
