@@ -7,7 +7,7 @@ const dist = path.join(root, "dist");
 const siteUrl = "https://ordsmusic.com";
 const siteName = "ORDS Music School & Studio";
 const socialImage = "https://res.cloudinary.com/dtmonxj1h/image/upload/q_auto/f_auto/v1781886182/ORDS_Music_School_Studio_nloflc.jpg";
-const assetVersion = "20260624-shop-tee";
+const assetVersion = "20260710-angel-shop";
 
 const logo = "https://static.wixstatic.com/media/a51682_27dfdd46028443e7a016d349782ffa8f~mv2.png";
 const favicon = "/assets/WhiteStick-Logo.png";
@@ -15,14 +15,13 @@ const academyVideo = "https://video.wixstatic.com/video/fc478d_f979a3da0eae41a48
 const poster = "https://static.wixstatic.com/media/a51682_2bb1edb8c8c141ca874042123b9b7d91~mv2.jpg";
 const experienceImg = "https://static.wixstatic.com/media/fc478d_0fc4ed886cc64a2eb07aa454308d136f~mv2.jpg";
 const studioImg = "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1800&q=75";
+const angelImg = "/assets/angel-vocal-instructor.jpg";
 const instructorInstagram = {
   "Bryan": { url: "https://www.instagram.com/adonai.wav/", handle: "@adonai.wav" },
   "Oscar Ramos": { url: "https://www.instagram.com/tito_ovr/", handle: "@tito_ovr" },
   "Osiel": { url: "https://www.instagram.com/osielelbajista/", handle: "@osielelbajista" },
   "David": { url: "https://www.instagram.com/davidvaldez421/", handle: "@davidvaldez421" },
-  "Jorge Saenz": { url: "https://www.instagram.com/jasaenz/", handle: "@jasaenz" },
-  "Bethany": { url: "https://www.instagram.com/bethanyjoysings/", handle: "@bethanyjoysings" },
-  "Vocal Team": { url: "https://www.instagram.com/bethanyjoysings/", handle: "@bethanyjoysings" }
+  "Jorge Saenz": { url: "https://www.instagram.com/jasaenz/", handle: "@jasaenz" }
 };
 
 const instructorBios = {
@@ -31,7 +30,7 @@ const instructorBios = {
   "David": "David builds bass and piano students with strong timing, groove, and musical understanding so they can lock in, serve the band, and play with excellence.",
   "Osiel": "Osiel teaches practical musicianship with discipline and clarity, helping students build timing, technique, confidence, and worship-ready playing.",
   "Jorge Saenz": "Jorge specializes in contemporary guitar, tone, technique, and musical expression, with coaching for pedalboards and confident live playing.",
-  "Vocal Team": "Bethany coaches vocal strength, control, and confidence, helping students develop their voice with discipline and excellence for worship and performance."
+  "Angel": "A Liberty University graduate in Vocal Performance, Angel helps singers build healthy technique, confidence, and worship-focused musicality. He has taught since 2018 through churches, music academies, and private lessons."
 };
 
 const audienceDetails = {
@@ -128,16 +127,17 @@ const programs = [
   },
   {
     slug: "vocal-coaching",
-    title: "Vocal Coaching at ORDS Music School | ORDS",
-    desc: "Build vocal control, pitch confidence, expression, and stage presence.",
-    eyebrow: "Vocal Coaching",
-    h1: "Vocal Coaching",
-    lead: "Build vocal control, pitch confidence, expression, and stage presence.",
-    image: "https://static.wixstatic.com/media/a51682_36db621d6cc84a4d9237115930725adf~mv2.jpg",
+    title: "In-Person Vocal Lessons in Manassas, VA | ORDS Music School",
+    desc: "In-person vocal lessons in Manassas, VA focused on healthy technique, pitch, breath control, worship singing, expression, and performance confidence.",
+    eyebrow: "Vocal Lessons",
+    h1: "Vocal Lessons",
+    lead: "Build healthy technique, pitch confidence, expression, and stage presence in person.",
+    image: angelImg,
+    heroAlign: "right",
     icon: "",
     learn: ["Vocal Control", "Pitch Confidence", "Stage Presence"],
     audience: ["New Singers", "Worship Vocalists", "Performers"],
-    instructors: [["Vocal Team", "Vocal Coaching", "https://static.wixstatic.com/media/a51682_36db621d6cc84a4d9237115930725adf~mv2.jpg"]]
+    instructors: [["Angel", "In-Person Vocal Instructor", angelImg]]
   },
   {
     slug: "audio-lessons",
@@ -212,6 +212,7 @@ function cleanDist() {
   fs.copyFileSync(path.join(src, "styles.css"), path.join(dist, "css", "styles.css"));
   fs.copyFileSync(path.join(src, "main.js"), path.join(dist, "js", "main.js"));
   fs.copyFileSync(path.join(src, "assets", "WhiteStick-Logo.png"), path.join(dist, "assets", "WhiteStick-Logo.png"));
+  fs.copyFileSync(path.join(src, "assets", "angel-vocal-instructor.jpg"), path.join(dist, "assets", "angel-vocal-instructor.jpg"));
 }
 
 function pagePath(slug) {
@@ -294,11 +295,11 @@ function layout({ slug, title, desc, body, image = socialImage, ogTitle, ogDesc,
 </html>`;
 }
 
-function hero({ eyebrow, h1, span, lead, image, video, ctas = true }) {
+function hero({ eyebrow, h1, span, lead, image, video, ctas = true, align = "left" }) {
   const media = video
     ? `<video class="hero-media" autoplay muted loop playsinline poster="${image}"><source src="${video}" type="video/mp4"></video>`
     : `<img class="hero-media" src="${image}" alt="${escapeHtml(h1)}">`;
-  return `<header class="hero${video ? "" : " page-hero"}">${media}<div class="container hero-content reveal"><span class="eyebrow">${eyebrow}</span><h1>${h1} <span>${span}</span></h1><p class="lead">${lead}</p>${ctas ? `<div class="cta-row"><a class="btn" href="/consultation">Book Free Consultation</a><a class="btn secondary" href="/classes">Explore Classes</a></div>` : ""}</div></header><div class="wave-divider"></div>`;
+  return `<header class="hero${video ? "" : " page-hero"}${align === "right" ? " hero-content-right" : ""}">${media}<div class="container hero-content reveal"><span class="eyebrow">${eyebrow}</span><h1>${h1} <span>${span}</span></h1><p class="lead">${lead}</p>${ctas ? `<div class="cta-row"><a class="btn" href="/consultation">Book Free Consultation</a><a class="btn secondary" href="/classes">Explore Classes</a></div>` : ""}</div></header><div class="wave-divider"></div>`;
 }
 
 function finalCta() {
@@ -380,7 +381,7 @@ function programPage(p) {
   const audience = p.audience.map((item, i) => `<div class="feature-row reveal"><span>${String(i + 1).padStart(2, "0")}</span><div><strong>${item}</strong><p>${audienceDescription(p.slug, item)}</p></div></div>`).join("");
   const instructorGridClass = p.instructors.length === 1 ? "instructors single-instructor" : "instructors";
   const instructors = p.instructors.map(([name, role, img]) => `<div class="instructor-card reveal"><img src="${img}" alt="${name}"><div class="instructor-info"><span class="role">${role}</span><h3>${name}</h3><p>${instructorBio(name, "Focused on musical excellence, confidence, discipline, and practical growth.")}</p>${instagramAnchor(name)}</div></div>`).join("");
-  const body = `${hero({ eyebrow: p.eyebrow, h1: p.h1, span: "ORDS Music School", lead: p.lead, image: p.image })}
+  const body = `${hero({ eyebrow: p.eyebrow, h1: p.h1, span: "ORDS Music School", lead: p.lead, image: p.image, align: p.heroAlign })}
   <section class="light"><div class="container"><div class="section-head reveal"><span class="eyebrow tag-on-light">${p.eyebrow}</span><h2>What you'll learn.</h2><p>Personalized lessons that help students grow musically and confidently.</p></div><div class="cards">${learn}</div></div></section>
   <section class="dark"><div class="container split"><div class="image-panel reveal"><img src="${p.image}" alt="${p.h1} at ORDS"></div><div class="reveal"><span class="eyebrow">Who Can Join?</span><h2 class="display-small">${p.h1} for every skill level.</h2><p class="lead">Whether you're just starting or ready to refine your skill, ORDS helps students grow with personalized instruction and musical discipline.</p><div class="feature-list">${audience}</div><a class="btn" href="/consultation">Book Free Consultation</a></div></div></section>
   <section class="dark"><div class="container"><div class="section-head reveal"><span class="eyebrow">The ORDS Team</span><h2>Learn from experienced mentors.</h2><p>Students receive guidance from people who care about skill, discipline, confidence, and musical growth.</p></div><div class="${instructorGridClass}">${instructors}</div></div></section>
@@ -419,10 +420,13 @@ function shopPage() {
       ? `<div class="gallery-frame shop-variant-frame"><img class="merch-main-media gallery-main shop-active-image" src="${product.variants[0].media.find((media) => media.type === "image").src}" alt="${escapeHtml(product.variants[0].name)} ${escapeHtml(product.name)}" loading="lazy" decoding="async"><span class="stock-pill">${product.status}</span><span class="color-count-pill">Black + White</span></div>`
       : `<div class="gallery-frame"><img class="merch-main-media gallery-main" src="${product.image}" alt="${escapeHtml(product.name)}" loading="lazy" decoding="async"><span class="stock-pill">${product.status}</span></div>`;
     const colorNote = product.variants ? `<div class="shop-color-note">${product.variants.map((variant, index) => `<button class="${index === 0 ? "active" : ""}" type="button" data-shop-variant="${escapeHtml(variant.name)}" data-shop-image="${(variant.media.find((media) => media.type === "image") || variant.media[0]).src}"><i style="--swatch:${variant.color}"></i>${variant.name}</button>`).join("")}</div>` : "";
-    return `<article class="product-card merch-card shop-product-card reveal" data-product-id="${product.id}" data-product-name="${escapeHtml(product.name)}" data-product-price="${product.price || ""}" data-product-price-label="${priceLabel}" data-product-sizes="${product.sizes.join("|")}" data-product-variants="${escapeHtml(JSON.stringify(productVariants(product)))}">${previewFrame}<div class="product-body"><div class="product-meta"><span>${product.category}</span>${priceMarkup}</div><h3>${product.name}</h3><p>${product.description}</p>${colorNote}<div class="size-chips">${product.sizes.map((size) => `<span>${size}</span>`).join("")}</div><a class="btn merch-buy" href="/${productSlug(product)}">View Details</a></div></article>`;
+    const action = product.paymentUrl
+      ? `<a class="btn merch-buy" href="${product.paymentUrl}" target="_blank" rel="noopener noreferrer">Buy Now</a>`
+      : `<a class="btn merch-buy" href="/${productSlug(product)}">View Details</a>`;
+    return `<article class="product-card merch-card shop-product-card reveal" data-product-id="${product.id}" data-product-name="${escapeHtml(product.name)}" data-product-price="${product.price || ""}" data-product-price-label="${priceLabel}" data-product-sizes="${product.sizes.join("|")}" data-product-variants="${escapeHtml(JSON.stringify(productVariants(product)))}">${previewFrame}<div class="product-body"><div class="product-meta"><span>${product.category}</span>${priceMarkup}</div><h3>${product.name}</h3><p>${product.description}</p>${colorNote}<div class="size-chips">${product.sizes.map((size) => `<span>${size}</span>`).join("")}</div>${action}</div></article>`;
   }).join("");
   const body = `${hero({ eyebrow: "Merch", h1: "Timing is", span: "everything.", lead: "ORDS merch for students, musicians, and the ORDS community.", image: "https://static.wixstatic.com/media/a51682_ab3ee4b5d51f43f5a96189e9c864d1dc~mv2.jpeg" })}
-  <section class="light merch-section" id="shop"><div class="container"><div class="section-head reveal"><span class="eyebrow tag-on-light">ORDS Essentials</span><h2>Shop merch.</h2><p>View each product for closer photos, sizing, and checkout or request details.</p></div><div class="merch-toolbar reveal"><div><strong>Featured Drop</strong><span>Classic Oversized T's and ORDS hats</span></div><a class="btn secondary" href="/classic-oversized-tee">Shop Tees</a></div><div class="product-grid merch-grid shop-catalog">${productCards}</div></div></section>`;
+  <section class="light merch-section" id="shop"><div class="container"><div class="section-head reveal"><span class="eyebrow tag-on-light">ORDS Essentials</span><h2>Shop merch.</h2><p>Preview each product, choose your color, and purchase or request details.</p></div><div class="merch-toolbar reveal"><div><strong>Featured Drop</strong><span>Classic Oversized T's and ORDS hats</span></div><a class="btn secondary" href="${merchProducts.find((product) => product.id === "classic-oversized-tee").paymentUrl}" target="_blank" rel="noopener noreferrer">Buy Classic Tee</a></div><div class="product-grid merch-grid shop-catalog">${productCards}</div></div></section>`;
   return layout({ slug: "shop", title: "Shop | ORDS Music Academy", desc: "Shop ORDS Classic Oversized T's and hats.", body });
 }
 
