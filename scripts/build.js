@@ -233,7 +233,7 @@ function nav() {
 }
 
 function footer() {
-  return `<footer class="footer"><div class="container footer-grid"><div><div class="brand footer-brand"><img src="${logo}" alt="ORDS"><span>ORDS</span></div><p>Music Academy and Studio serving students, musicians, and creatives with discipline, order, practice, and excellence.</p><p>140 Kent Dr<br>Manassas Park, VA 20111</p></div><div><h4>Contact</h4><p>Phone Number<br><a href="tel:+17034758719"><strong>(703) 475-8719</strong></a></p><p>Email<br><a href="mailto:RAMOSDS@GMAIL.COM"><strong>RAMOSDS@GMAIL.COM</strong></a></p><h4>Social</h4><a href="https://www.instagram.com/_ords_/" target="_blank" rel="noopener noreferrer">ORDS Music Instagram</a><a href="https://www.instagram.com/ordstudios_/" target="_blank" rel="noopener noreferrer">ORDS Studio Instagram</a></div><div><h4>Quick Links</h4><a href="/about">Get To Know Us</a><a href="/classes">Classes</a><a href="/drum-lessons">Drum Lessons</a><a href="/piano-lessons">Piano Lessons</a><a href="/shop">Shop</a><a href="/consultation">Book Consultation</a><a href="/ords-studio">ORDS Studio</a></div></div><div class="container footer-bottom"><span>© ORDS Music Academy</span><span>Timing is everything.</span></div></footer>`;
+  return `<footer class="footer"><div class="container footer-grid"><div><div class="brand footer-brand"><img src="${logo}" alt="ORDS"><span>ORDS</span></div><p>Music Academy and Studio serving students, musicians, and creatives with discipline, order, practice, and excellence.</p><p>140 Kent Dr<br>Manassas Park, VA 20111</p></div><div><h4>Contact</h4><p>Phone Number<br><a href="tel:+17034758719"><strong>(703) 475-8719</strong></a></p><p>Email<br><a href="mailto:Ramosods@gmail.com"><strong>Ramosods@gmail.com</strong></a></p><h4>Social</h4><a href="https://www.instagram.com/_ords_/" target="_blank" rel="noopener noreferrer">ORDS Music Instagram</a><a href="https://www.instagram.com/ordstudios_/" target="_blank" rel="noopener noreferrer">ORDS Studio Instagram</a></div><div><h4>Quick Links</h4><a href="/about">Get To Know Us</a><a href="/classes">Classes</a><a href="/drum-lessons">Drum Lessons</a><a href="/piano-lessons">Piano Lessons</a><a href="/shop">Shop</a><a href="/consultation">Book Consultation</a><a href="/ords-studio">ORDS Studio</a></div></div><div class="container footer-bottom"><span>© ORDS Music Academy</span><span>Timing is everything.</span></div></footer>`;
 }
 
 function layout({ slug, title, desc, body, image = socialImage, ogTitle, ogDesc, ogUrl, canonicalUrl }) {
@@ -279,7 +279,7 @@ function layout({ slug, title, desc, body, image = socialImage, ogTitle, ogDesc,
     name: siteName,
     url: siteUrl,
     telephone: "+17034758719",
-    email: "RAMOSDS@GMAIL.COM",
+    email: "Ramosods@gmail.com",
     address: {
       "@type": "PostalAddress",
       streetAddress: "140 Kent Dr",
