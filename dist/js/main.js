@@ -240,6 +240,18 @@ merchCards.forEach(card=>{
     }
   });
 });
+document.querySelectorAll('.size-chips').forEach(group=>{
+  group.addEventListener('click',event=>{
+    const option=event.target.closest('[data-size-option]');
+    if(!option||!group.contains(option))return;
+    group.querySelectorAll('[data-size-option]').forEach(button=>{
+      const selected=button===option;
+      button.classList.toggle('active',selected);
+      button.setAttribute('aria-pressed',selected?'true':'false');
+    });
+    group.dataset.selectedSize=option.dataset.sizeOption;
+  });
+});
 document.addEventListener('click',event=>{
   if(!event.target.closest('.custom-select'))customSelects.forEach(select=>select.classList.remove('open'));
 });

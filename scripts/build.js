@@ -7,7 +7,7 @@ const dist = path.join(root, "dist");
 const siteUrl = "https://ordsmusic.com";
 const siteName = "ORDS Music School & Studio";
 const socialImage = "https://res.cloudinary.com/dtmonxj1h/image/upload/q_auto/f_auto/v1781886182/ORDS_Music_School_Studio_nloflc.jpg";
-const assetVersion = "20260710-angel-shop";
+const assetVersion = "20260716-cloudinary-tees";
 
 const logo = "https://static.wixstatic.com/media/a51682_27dfdd46028443e7a016d349782ffa8f~mv2.png";
 const favicon = "/assets/WhiteStick-Logo.png";
@@ -159,6 +159,33 @@ const programs = [
 
 const merchProducts = [
   {
+    id: "classic-oversized-tee",
+    name: "Classic Oversized T's",
+    category: "Tees",
+    price: 45,
+    status: "New",
+    paymentUrl: "https://square.link/u/6FmCBHa3",
+    image: "https://res.cloudinary.com/dtmonxj1h/image/upload/q_auto/f_auto/v1784210818/ORDS0003_ihlbqe.jpg",
+    description: "Oversized ORDS tee with embroidered logo details, available in black or white.",
+    variants: [
+      {
+        name: "Black",
+        color: "#050505",
+        media: [
+          { type: "image", src: "https://res.cloudinary.com/dtmonxj1h/image/upload/q_auto/f_auto/v1784210818/ORDS0003_ihlbqe.jpg" }
+        ]
+      },
+      {
+        name: "White",
+        color: "#f4f4ef",
+        media: [
+          { type: "image", src: "https://res.cloudinary.com/dtmonxj1h/image/upload/q_auto/f_auto/v1784210832/ORDS0002_kkm0hi.jpg" }
+        ]
+      }
+    ],
+    sizes: ["Small", "Medium", "Large", "XL", "XXL"]
+  },
+  {
     id: "ords-hat",
     name: "ORDS Hat",
     category: "Hats",
@@ -168,37 +195,6 @@ const merchProducts = [
     altImage: "",
     description: "Clean everyday ORDS hat for students, musicians, and supporters.",
     sizes: ["One Size"]
-  },
-  {
-    id: "classic-oversized-tee",
-    name: "Classic Oversized T's",
-    category: "Tees",
-    price: 45,
-    status: "New",
-    paymentUrl: "https://square.link/u/6FmCBHa3",
-    image: "https://res.cloudinary.com/dtmonxj1h/image/upload/q_auto/f_auto/v1781816311/IMG_3691_jku9ln.heic",
-    description: "Oversized ORDS tee with embroidered logo details, available in black or white.",
-    variants: [
-      {
-        name: "Black",
-        color: "#050505",
-        media: [
-          { type: "image", src: "https://res.cloudinary.com/dtmonxj1h/image/upload/q_auto/f_auto/v1781816311/IMG_3691_jku9ln.heic" },
-          { type: "image", src: "https://res.cloudinary.com/dtmonxj1h/image/upload/q_auto/f_auto/v1781816310/IMG_3678_btbtwu.heic" },
-          { type: "video", src: "https://res.cloudinary.com/dtmonxj1h/video/upload/q_auto/f_auto/v1781816908/IMG_3781_yxh8dt.mov", poster: "https://res.cloudinary.com/dtmonxj1h/image/upload/q_auto/f_auto/v1781816311/IMG_3691_jku9ln.heic" }
-        ]
-      },
-      {
-        name: "White",
-        color: "#f4f4ef",
-        media: [
-          { type: "image", src: "https://res.cloudinary.com/dtmonxj1h/image/upload/q_auto/f_auto/v1781817128/IMG_3641_esmhxz.heic" },
-          { type: "image", src: "https://res.cloudinary.com/dtmonxj1h/image/upload/q_auto/f_auto/v1781817127/IMG_3659_s2ifvb.heic" },
-          { type: "video", src: "https://res.cloudinary.com/dtmonxj1h/video/upload/q_auto/f_auto/v1781817156/0618_1_yukdch.mov", poster: "https://res.cloudinary.com/dtmonxj1h/image/upload/q_auto/f_auto/v1781817128/IMG_3641_esmhxz.heic" }
-        ]
-      }
-    ],
-    sizes: ["Small", "Medium", "Large", "XL", "XXL"]
   }
 ];
 
@@ -322,6 +318,12 @@ function productThanksSlug(product) {
   return product.id === "classic-oversized-tee" ? "classic-tee-thank-you" : "hat-thank-you";
 }
 
+function productSizeOptions(product, extraClass = "") {
+  const classes = `size-chips${extraClass ? ` ${extraClass}` : ""}`;
+  if (product.sizes.length === 1) return `<div class="${classes}"><span>${product.sizes[0]}</span></div>`;
+  return `<div class="${classes}" role="group" aria-label="Select a size">${product.sizes.map((size) => `<button type="button" data-size-option="${escapeHtml(size)}" aria-pressed="false">${size}</button>`).join("")}</div>`;
+}
+
 function productVariants(product) {
   return product.variants || [
     { name: "Default", color: "", media: [{ type: "image", src: product.image }, ...(product.altImage ? [{ type: "image", src: product.altImage }] : [])] }
@@ -423,10 +425,10 @@ function shopPage() {
     const action = product.paymentUrl
       ? `<a class="btn merch-buy" href="${product.paymentUrl}" target="_blank" rel="noopener noreferrer">Buy Now</a>`
       : `<a class="btn merch-buy" href="/${productSlug(product)}">View Details</a>`;
-    return `<article class="product-card merch-card shop-product-card reveal" data-product-id="${product.id}" data-product-name="${escapeHtml(product.name)}" data-product-price="${product.price || ""}" data-product-price-label="${priceLabel}" data-product-sizes="${product.sizes.join("|")}" data-product-variants="${escapeHtml(JSON.stringify(productVariants(product)))}">${previewFrame}<div class="product-body"><div class="product-meta"><span>${product.category}</span>${priceMarkup}</div><h3>${product.name}</h3><p>${product.description}</p>${colorNote}<div class="size-chips">${product.sizes.map((size) => `<span>${size}</span>`).join("")}</div>${action}</div></article>`;
+    return `<article class="product-card merch-card shop-product-card reveal" data-product-id="${product.id}" data-product-name="${escapeHtml(product.name)}" data-product-price="${product.price || ""}" data-product-price-label="${priceLabel}" data-product-sizes="${product.sizes.join("|")}" data-product-variants="${escapeHtml(JSON.stringify(productVariants(product)))}">${previewFrame}<div class="product-body"><div class="product-meta"><span>${product.category}</span>${priceMarkup}</div><h3>${product.name}</h3><p>${product.description}</p>${colorNote}${productSizeOptions(product)}${action}</div></article>`;
   }).join("");
   const body = `${hero({ eyebrow: "Merch", h1: "Timing is", span: "everything.", lead: "ORDS merch for students, musicians, and the ORDS community.", image: "https://static.wixstatic.com/media/a51682_ab3ee4b5d51f43f5a96189e9c864d1dc~mv2.jpeg" })}
-  <section class="light merch-section" id="shop"><div class="container"><div class="section-head reveal"><span class="eyebrow tag-on-light">ORDS Essentials</span><h2>Shop merch.</h2><p>Preview each product, choose your color, and purchase or request details.</p></div><div class="merch-toolbar reveal"><div><strong>Featured Drop</strong><span>Classic Oversized T's and ORDS hats</span></div><a class="btn secondary" href="${merchProducts.find((product) => product.id === "classic-oversized-tee").paymentUrl}" target="_blank" rel="noopener noreferrer">Buy Classic Tee</a></div><div class="product-grid merch-grid shop-catalog">${productCards}</div></div></section>`;
+  <section class="light merch-section" id="shop"><div class="container"><div class="section-head reveal"><span class="eyebrow tag-on-light">ORDS Essentials</span><h2>Shop merch.</h2><p>Preview each product, choose your color, and purchase or request details.</p></div><div class="product-grid merch-grid shop-catalog">${productCards}</div></div></section>`;
   return layout({ slug: "shop", title: "Shop | ORDS Music Academy", desc: "Shop ORDS Classic Oversized T's and hats.", body });
 }
 
@@ -439,7 +441,7 @@ function productPage(product) {
   const details = isTee
     ? ["Oversized fit with a clean everyday shape", "Embroidered ORDS logo detail", "Available in black and white", "Sizes Small through XXL"]
     : ["One size", "Clean ORDS front mark", "Everyday student and supporter fit", "Pickup details confirmed by ORDS"];
-  const body = `<main class="light product-detail-page"><section class="product-detail-section"><div class="container"><a class="back-link reveal" href="/shop">Back to shop</a><div class="product-detail-grid"><div class="reveal">${productGallery(product, "detail")}</div><div class="product-detail-panel reveal"><span class="eyebrow tag-on-light">${product.category}</span><div class="product-title-row"><h1>${product.name}</h1>${product.price ? `<strong>$${product.price}</strong>` : ""}</div><p class="product-lead">${product.description}</p><div class="product-price-row"><span>${priceLine}</span>${product.price ? `<strong>$${product.price}</strong>` : ""}</div><div class="product-fit-note"><strong>Available sizes</strong><span>${product.sizes.join(" / ")}</span></div><div class="size-chips product-size-chips">${product.sizes.map((size) => `<span>${size}</span>`).join("")}</div><div class="detail-list">${details.map((detail) => `<div><span></span><p>${detail}</p></div>`).join("")}</div><div class="product-actions">${action}</div></div></div></div></section></main>`;
+  const body = `<main class="light product-detail-page"><section class="product-detail-section"><div class="container"><a class="back-link reveal" href="/shop">Back to shop</a><div class="product-detail-grid"><div class="reveal">${productGallery(product, "detail")}</div><div class="product-detail-panel reveal"><span class="eyebrow tag-on-light">${product.category}</span><div class="product-title-row"><h1>${product.name}</h1>${product.price ? `<strong>$${product.price}</strong>` : ""}</div><p class="product-lead">${product.description}</p><div class="product-price-row"><span>${priceLine}</span>${product.price ? `<strong>$${product.price}</strong>` : ""}</div><div class="product-fit-note"><strong>Available sizes</strong><span>${product.sizes.join(" / ")}</span></div>${productSizeOptions(product, "product-size-chips")}<div class="detail-list">${details.map((detail) => `<div><span></span><p>${detail}</p></div>`).join("")}</div><div class="product-actions">${action}</div></div></div></div></section></main>`;
   return layout({ slug: productSlug(product), title: `${product.name} | ORDS Shop`, desc: product.description, image: product.image, body });
 }
 
