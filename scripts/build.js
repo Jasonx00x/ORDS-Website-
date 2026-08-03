@@ -7,14 +7,23 @@ const dist = path.join(root, "dist");
 const siteUrl = "https://ordsmusic.com";
 const siteName = "ORDS Music School & Studio";
 const socialImage = "https://res.cloudinary.com/dtmonxj1h/image/upload/q_auto/f_auto/v1781886182/ORDS_Music_School_Studio_nloflc.jpg";
-const assetVersion = "20260716-cloudinary-tees";
+const assetVersion = "20260803-student-action-photos";
 
 const logo = "https://static.wixstatic.com/media/a51682_27dfdd46028443e7a016d349782ffa8f~mv2.png";
 const favicon = "/assets/WhiteStick-Logo.png";
 const academyVideo = "https://video.wixstatic.com/video/fc478d_f979a3da0eae41a480bb521a6cb0d73b/1080p/mp4/file.mp4";
 const poster = "https://static.wixstatic.com/media/a51682_2bb1edb8c8c141ca874042123b9b7d91~mv2.jpg";
 const experienceImg = "https://static.wixstatic.com/media/fc478d_0fc4ed886cc64a2eb07aa454308d136f~mv2.jpg";
-const studioImg = "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?auto=format&fit=crop&w=1800&q=75";
+const shopHeroImg = "https://res.cloudinary.com/dtmonxj1h/image/upload/f_auto,q_auto:good,w_2200/v1785784315/7IV00291_zdkoat.jpg";
+const pianoImg = "https://res.cloudinary.com/dtmonxj1h/image/upload/f_auto,q_auto:good,w_1800/v1785785437/7IV00717_1_zmmuft.jpg";
+const studioImg = "https://res.cloudinary.com/dtmonxj1h/image/upload/f_auto,q_auto:good,w_1800/v1785785438/7IV00739_1_yy27se.jpg";
+const studioDetailImg = "https://res.cloudinary.com/dtmonxj1h/image/upload/f_auto,q_auto:good,w_1800/v1785785878/7IV00743_1_jmmmtj.jpg";
+const guitarImg = "https://res.cloudinary.com/dtmonxj1h/image/upload/f_auto,q_auto:good,w_1800/v1785785441/7IV00704_1_bi4wmf.jpg";
+const drumsImg = "https://res.cloudinary.com/dtmonxj1h/image/upload/f_auto,q_auto:good,w_1800/v1785785439/7IV00676_1_tmkyub.jpg";
+const bassImg = "https://res.cloudinary.com/dtmonxj1h/image/upload/f_auto,q_auto:good,w_1800/v1785786140/7IV00700_1_em34xo.jpg";
+const drumStudentImg = "https://res.cloudinary.com/dtmonxj1h/image/upload/f_auto,q_auto:good,w_2200/v1785785432/7IV00377_1_djjxi5.jpg";
+const guitarStudentImg = "https://res.cloudinary.com/dtmonxj1h/image/upload/f_auto,q_auto:good,w_2200/v1785793373/7IV00534_1_anytrr.jpg";
+const mixingStudentImg = "https://res.cloudinary.com/dtmonxj1h/image/upload/f_auto,q_auto:good,w_2200/v1785793375/7IV00748_1_uggmhs.jpg";
 const angelImg = "/assets/angel-vocal-instructor.jpg";
 const instructorInstagram = {
   "Bryan": { url: "https://www.instagram.com/adonai.wav/", handle: "@adonai.wav" },
@@ -74,7 +83,8 @@ const programs = [
     eyebrow: "Drum Program",
     h1: "Drum Lessons",
     lead: "Build rhythm, timing, technique, and confidence behind the kit.",
-    image: "https://static.wixstatic.com/media/fc478d_95a620ae93d740b08cd763e29df85895~mv2.jpg",
+    image: drumsImg,
+    heroImage: drumStudentImg,
     icon: "https://static.wixstatic.com/media/fc478d_79dce991bfb64fb0b4821bb84c5cac26~mv2.png",
     learn: ["Rhythm & Timing", "Drum Technique", "Live Performance"],
     audience: ["Beginners", "Intermediate Players", "Worship & Live Performance"],
@@ -90,7 +100,7 @@ const programs = [
     eyebrow: "Piano Program",
     h1: "Piano Lessons",
     lead: "Learn foundations, worship keys, chords, and musical confidence.",
-    image: "https://images.unsplash.com/photo-1520523839897-bd0b52f945a0?auto=format&fit=crop&w=1800&q=75",
+    image: pianoImg,
     icon: "https://static.wixstatic.com/media/fc478d_f5596a401b044422bb5ff74c00bb03a2~mv2.png",
     learn: ["Chords & Progressions", "Technique", "Worship Keys"],
     audience: ["New Players", "Growing Musicians", "Worship Keys"],
@@ -103,7 +113,8 @@ const programs = [
     eyebrow: "Guitar Program",
     h1: "Guitar Lessons",
     lead: "Build clean chords, rhythm, tone, and confidence for modern playing.",
-    image: "https://static.wixstatic.com/media/fc478d_4bc6faefbe5e41599fcba325c00a09e3~mv2.jpg",
+    image: guitarImg,
+    heroImage: guitarStudentImg,
     icon: "https://static.wixstatic.com/media/fc478d_a9da3f49f7a74fceac9c3f5a9094f94e~mv2.png",
     learn: ["Chords & Rhythm", "Technique", "Worship Playing"],
     audience: ["Beginners", "Worship Guitarists", "Pedalboard Coaching"],
@@ -119,7 +130,7 @@ const programs = [
     eyebrow: "Bass Program",
     h1: "Bass Lessons",
     lead: "Learn groove, pocket, timing, and how to support a band with confidence.",
-    image: "https://static.wixstatic.com/media/a51682_0cdbf152f1894652892de49e9732f8d4~mv2.jpg",
+    image: bassImg,
     icon: "https://static.wixstatic.com/media/fc478d_a9da3f49f7a74fceac9c3f5a9094f94e~mv2.png",
     learn: ["Groove & Pocket", "Timing", "Band Confidence"],
     audience: ["Beginners", "Band Players", "Worship Bassists"],
@@ -147,6 +158,7 @@ const programs = [
     h1: "Audio Classes",
     lead: "Learn recording, mixing, production workflow, and creative audio fundamentals.",
     image: studioImg,
+    heroImage: mixingStudentImg,
     icon: "",
     learn: ["Recording Basics", "Mixing Workflow", "Creative Production"],
     audience: ["Beginners", "Musicians", "Future Producers"],
@@ -201,6 +213,13 @@ const merchProducts = [
 const pages = [];
 
 function cleanDist() {
+  const angelSource = path.join(src, "assets", "angel-vocal-instructor.jpg");
+  const angelOutput = path.join(dist, "assets", "angel-vocal-instructor.jpg");
+  const angelAsset = fs.existsSync(angelSource)
+    ? fs.readFileSync(angelSource)
+    : fs.existsSync(angelOutput)
+      ? fs.readFileSync(angelOutput)
+      : null;
   fs.rmSync(dist, { recursive: true, force: true });
   fs.mkdirSync(path.join(dist, "css"), { recursive: true });
   fs.mkdirSync(path.join(dist, "js"), { recursive: true });
@@ -208,7 +227,7 @@ function cleanDist() {
   fs.copyFileSync(path.join(src, "styles.css"), path.join(dist, "css", "styles.css"));
   fs.copyFileSync(path.join(src, "main.js"), path.join(dist, "js", "main.js"));
   fs.copyFileSync(path.join(src, "assets", "WhiteStick-Logo.png"), path.join(dist, "assets", "WhiteStick-Logo.png"));
-  fs.copyFileSync(path.join(src, "assets", "angel-vocal-instructor.jpg"), path.join(dist, "assets", "angel-vocal-instructor.jpg"));
+  if (angelAsset) fs.writeFileSync(path.join(dist, "assets", "angel-vocal-instructor.jpg"), angelAsset);
 }
 
 function pagePath(slug) {
@@ -291,11 +310,15 @@ function layout({ slug, title, desc, body, image = socialImage, ogTitle, ogDesc,
 </html>`;
 }
 
-function hero({ eyebrow, h1, span, lead, image, video, ctas = true, align = "left" }) {
+function hero({ eyebrow, h1, span, lead, image, video, ctas = true, align = "left", className = "" }) {
   const media = video
     ? `<video class="hero-media" autoplay muted loop playsinline poster="${image}"><source src="${video}" type="video/mp4"></video>`
-    : `<img class="hero-media" src="${image}" alt="${escapeHtml(h1)}">`;
-  return `<header class="hero${video ? "" : " page-hero"}${align === "right" ? " hero-content-right" : ""}">${media}<div class="container hero-content reveal"><span class="eyebrow">${eyebrow}</span><h1>${h1} <span>${span}</span></h1><p class="lead">${lead}</p>${ctas ? `<div class="cta-row"><a class="btn" href="/consultation">Book Free Consultation</a><a class="btn secondary" href="/classes">Explore Classes</a></div>` : ""}</div></header><div class="wave-divider"></div>`;
+    : `<img class="hero-media" src="${image}" alt="${escapeHtml(h1)}" fetchpriority="high" decoding="async">`;
+  return `<header class="hero${video ? "" : " page-hero"}${align === "right" ? " hero-content-right" : ""}${className ? ` ${className}` : ""}">${media}<div class="container hero-content reveal"><span class="eyebrow">${eyebrow}</span><h1>${h1} <span>${span}</span></h1><p class="lead">${lead}</p>${ctas ? `<div class="cta-row"><a class="btn" href="/consultation">Book Free Consultation</a><a class="btn secondary" href="/classes">Explore Classes</a></div>` : ""}</div></header><div class="wave-divider"></div>`;
+}
+
+function shopHero() {
+  return `<header class="shop-hero"><img class="shop-hero-media" src="${shopHeroImg}" alt="ORDS Classic Oversized T's collection" fetchpriority="high" decoding="async"><div class="shop-hero-content reveal"><span class="shop-hero-kicker">The ORDS Classic</span><h1>ORDS Classic</h1><p>Black / White &nbsp;&middot;&nbsp; Small-XXL</p><a class="shop-hero-action" href="#shop">Shop Collection</a></div></header>`;
 }
 
 function finalCta() {
@@ -304,6 +327,10 @@ function finalCta() {
 
 function iconMarkup(p) {
   return p.icon ? `<img src="${p.icon}" alt="${p.h1} icon">` : `<svg viewBox="0 0 64 64"><path d="M18 12v40M32 12v40M46 12v40"/><circle cx="18" cy="25" r="5"/><circle cx="32" cy="39" r="5"/><circle cx="46" cy="29" r="5"/></svg>`;
+}
+
+function programCardMedia(p) {
+  return `<div class="program-card-media"><img src="${p.image}" alt="${escapeHtml(p.h1)} at ORDS" loading="lazy" decoding="async"><div class="icon">${iconMarkup(p)}</div></div>`;
 }
 
 function productPriceLabel(product) {
@@ -366,7 +393,7 @@ function audienceDescription(slug, item) {
 }
 
 function indexPage() {
-  const cards = programs.map((p) => `<a class="card program-card reveal" href="/${p.slug}"><div class="icon">${iconMarkup(p)}</div><h3>${p.h1.replace(" Lessons", "").replace(" Coaching", "s")}</h3><p>${p.desc}</p><span class="card-cta">Explore lessons <b>→</b></span></a>`).join("");
+  const cards = programs.map((p) => `<a class="card program-card reveal" href="/${p.slug}">${programCardMedia(p)}<h3>${p.h1.replace(" Lessons", "").replace(" Coaching", "s")}</h3><p>${p.desc}</p><span class="card-cta">Explore lessons <b>→</b></span></a>`).join("");
   const homeTitle = "ORDS Music School & Studio | Music Lessons, Recording & Production";
   const homeDesc = "ORDS Music School & Studio provides private music lessons, recording, mixing, mastering, and creative production services. Learn drums, piano, guitar, bass, audio production, and more.";
   const homeShareDesc = "Private music lessons, recording, mixing, mastering, and creative production services. Learn music with purpose at ORDS.";
@@ -383,13 +410,14 @@ function programPage(p) {
   const audience = p.audience.map((item, i) => `<div class="feature-row reveal"><span>${String(i + 1).padStart(2, "0")}</span><div><strong>${item}</strong><p>${audienceDescription(p.slug, item)}</p></div></div>`).join("");
   const instructorGridClass = p.instructors.length === 1 ? "instructors single-instructor" : "instructors";
   const instructors = p.instructors.map(([name, role, img]) => `<div class="instructor-card reveal"><img src="${img}" alt="${name}"><div class="instructor-info"><span class="role">${role}</span><h3>${name}</h3><p>${instructorBio(name, "Focused on musical excellence, confidence, discipline, and practical growth.")}</p>${instagramAnchor(name)}</div></div>`).join("");
-  const body = `${hero({ eyebrow: p.eyebrow, h1: p.h1, span: "ORDS Music School", lead: p.lead, image: p.image, align: p.heroAlign })}
+  const heroImage = p.heroImage || p.image;
+  const body = `${hero({ eyebrow: p.eyebrow, h1: p.h1, span: "ORDS Music School", lead: p.lead, image: heroImage, align: p.heroAlign })}
   <section class="light"><div class="container"><div class="section-head reveal"><span class="eyebrow tag-on-light">${p.eyebrow}</span><h2>What you'll learn.</h2><p>Personalized lessons that help students grow musically and confidently.</p></div><div class="cards">${learn}</div></div></section>
   <section class="dark"><div class="container split"><div class="image-panel reveal"><img src="${p.image}" alt="${p.h1} at ORDS"></div><div class="reveal"><span class="eyebrow">Who Can Join?</span><h2 class="display-small">${p.h1} for every skill level.</h2><p class="lead">Whether you're just starting or ready to refine your skill, ORDS helps students grow with personalized instruction and musical discipline.</p><div class="feature-list">${audience}</div><a class="btn" href="/consultation">Book Free Consultation</a></div></div></section>
   <section class="dark"><div class="container"><div class="section-head reveal"><span class="eyebrow">The ORDS Team</span><h2>Learn from experienced mentors.</h2><p>Students receive guidance from people who care about skill, discipline, confidence, and musical growth.</p></div><div class="${instructorGridClass}">${instructors}</div></div></section>
   <section class="experience"><img src="${experienceImg}" alt="ORDS experience"><div class="container reveal"><span class="eyebrow">The ORDS Experience</span><h2>More than lessons.</h2><p class="lead" style="margin:auto">A place to build discipline, confidence, creativity, and musical excellence.</p><div class="cta-row" style="justify-content:center"><a class="btn" href="/consultation">Start Your Journey</a></div></div></section>
   ${finalCta()}`;
-  return layout({ slug: p.slug, title: p.title, desc: p.desc, image: p.image, body });
+  return layout({ slug: p.slug, title: p.title, desc: p.desc, image: heroImage, body });
 }
 
 function aboutPage() {
@@ -402,7 +430,7 @@ function aboutPage() {
 }
 
 function classesPage() {
-  const cards = programs.map((p) => `<a class="card program-card reveal" href="/${p.slug}"><div class="icon">${iconMarkup(p)}</div><h3>${p.h1}</h3><p>${p.desc}</p><span class="card-cta">View program <b>→</b></span></a>`).join("");
+  const cards = programs.map((p) => `<a class="card program-card reveal" href="/${p.slug}">${programCardMedia(p)}<h3>${p.h1}</h3><p>${p.desc}</p><span class="card-cta">View program <b>→</b></span></a>`).join("");
   const body = `${hero({ eyebrow: "Classes", h1: "Find your", span: "next step.", lead: "Explore drums, piano, guitar, bass, vocals, audio classes, and studio pathways.", image: "https://static.wixstatic.com/media/fc478d_957e95071a06421589ff1c5d2901faaa~mv2.jpg" })}
   <section class="light"><div class="container"><div class="section-head reveal"><span class="eyebrow tag-on-light">Programs</span><h2>Choose a path.</h2><p>Each program is built for practical growth, confidence, and musical excellence.</p></div><div class="cards six">${cards}</div></div></section>${finalCta()}`;
   return layout({ slug: "classes", title: "Classes | ORDS Music Academy", desc: "Explore drums, piano, guitar, bass, vocals, and audio classes at ORDS.", body });
@@ -427,7 +455,7 @@ function shopPage() {
       : `<a class="btn merch-buy" href="/${productSlug(product)}">View Details</a>`;
     return `<article class="product-card merch-card shop-product-card reveal" data-product-id="${product.id}" data-product-name="${escapeHtml(product.name)}" data-product-price="${product.price || ""}" data-product-price-label="${priceLabel}" data-product-sizes="${product.sizes.join("|")}" data-product-variants="${escapeHtml(JSON.stringify(productVariants(product)))}">${previewFrame}<div class="product-body"><div class="product-meta"><span>${product.category}</span>${priceMarkup}</div><h3>${product.name}</h3><p>${product.description}</p>${colorNote}${productSizeOptions(product)}${action}</div></article>`;
   }).join("");
-  const body = `${hero({ eyebrow: "Merch", h1: "Timing is", span: "everything.", lead: "ORDS merch for students, musicians, and the ORDS community.", image: "https://static.wixstatic.com/media/a51682_ab3ee4b5d51f43f5a96189e9c864d1dc~mv2.jpeg" })}
+  const body = `${shopHero()}
   <section class="light merch-section" id="shop"><div class="container"><div class="section-head reveal"><span class="eyebrow tag-on-light">ORDS Essentials</span><h2>Shop merch.</h2><p>Preview each product, choose your color, and purchase or request details.</p></div><div class="product-grid merch-grid shop-catalog">${productCards}</div></div></section>`;
   return layout({ slug: "shop", title: "Shop | ORDS Music Academy", desc: "Shop ORDS Classic Oversized T's and hats.", body });
 }
@@ -462,7 +490,7 @@ function rafflePage() {
 
 function studioPage() {
   const body = `${hero({ eyebrow: "ORDS Studio", h1: "Create. Record.", span: "Release.", lead: "Recording, mixing, mastering, and creative audio support for artists, students, worship teams, and creatives.", image: studioImg })}
-  <section class="dark"><div class="container split"><div class="image-panel reveal"><img src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?auto=format&fit=crop&w=1800&q=75" alt="Live concert and worship production"></div><div class="reveal"><span class="eyebrow">Studio Services</span><h2 class="display-small">Audio support with intention.</h2><p class="lead">ORDS Studio helps creatives shape recordings with clarity, taste, and purpose.</p><div class="feature-list"><div class="feature-row"><span>01</span><div><strong>Recording & Production</strong><p>Creative support for artists, students, worship teams, and content.</p></div></div><div class="feature-row"><span>02</span><div><strong>Mixing - Oscar Ramos</strong><p>Balance, clarity, energy, and musical emotion for your tracks.</p></div></div><div class="feature-row"><span>03</span><div><strong>Mastering - Jorge Saenz</strong><p>Final polish, loudness, tone, and release-ready sound.</p></div></div></div><a class="btn" href="/consultation">Book Studio Consultation</a></div></div></section><section class="light"><div class="container"><div class="section-head reveal"><span class="eyebrow tag-on-light">Studio Services</span><h2>Build the right studio path.</h2><p>Tell us about your project and we will confirm the best recording, mixing, or mastering option during consultation.</p></div><div class="service-grid">${["Recording","Mixing","Mastering"].map((x) => `<div class="price-card reveal"><h3>${x}</h3><p class="muted">Project details and pricing confirmed during consultation.</p><div class="price">Consult</div></div>`).join("")}</div></div></section>${finalCta()}`;
+  <section class="dark"><div class="container split"><div class="image-panel reveal"><img src="${studioDetailImg}" alt="ORDS Studio mixing console" loading="lazy" decoding="async"></div><div class="reveal"><span class="eyebrow">Studio Services</span><h2 class="display-small">Audio support with intention.</h2><p class="lead">ORDS Studio helps creatives shape recordings with clarity, taste, and purpose.</p><div class="feature-list"><div class="feature-row"><span>01</span><div><strong>Recording & Production</strong><p>Creative support for artists, students, worship teams, and content.</p></div></div><div class="feature-row"><span>02</span><div><strong>Mixing - Oscar Ramos</strong><p>Balance, clarity, energy, and musical emotion for your tracks.</p></div></div><div class="feature-row"><span>03</span><div><strong>Mastering - Jorge Saenz</strong><p>Final polish, loudness, tone, and release-ready sound.</p></div></div></div><a class="btn" href="/consultation">Book Studio Consultation</a></div></div></section><section class="light"><div class="container"><div class="section-head reveal"><span class="eyebrow tag-on-light">Studio Services</span><h2>Build the right studio path.</h2><p>Tell us about your project and we will confirm the best recording, mixing, or mastering option during consultation.</p></div><div class="service-grid">${["Recording","Mixing","Mastering"].map((x) => `<div class="price-card reveal"><h3>${x}</h3><p class="muted">Project details and pricing confirmed during consultation.</p><div class="price">Consult</div></div>`).join("")}</div></div></section>${finalCta()}`;
   return layout({ slug: "ords-studio", title: "Audio Production & Recording Studio | ORDS Music School & Studio", desc: "ORDS Studio offers recording, mixing, mastering, production support, and audio learning pathways.", body, image: studioImg });
 }
 
