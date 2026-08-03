@@ -318,7 +318,7 @@ function hero({ eyebrow, h1, span, lead, image, video, ctas = true, align = "lef
 }
 
 function shopHero() {
-  return `<header class="shop-hero"><img class="shop-hero-media" src="${shopHeroImg}" alt="ORDS Classic Oversized T's collection" fetchpriority="high" decoding="async"><div class="shop-hero-content reveal"><span class="shop-hero-kicker">The ORDS Classic</span><h1>ORDS Classic</h1><p>Black / White &nbsp;&middot;&nbsp; Small-XXL</p><a class="shop-hero-action" href="#shop">Shop Collection</a></div></header>`;
+  return `<header class="shop-hero"><img class="shop-hero-media" src="${shopHeroImg}" alt="ORDS Apparel collection" fetchpriority="high" decoding="async"><div class="shop-hero-content reveal"><span class="shop-hero-kicker">Music / Community / Purpose</span><h1>ORDS Apparel</h1><p>Tees / Hats / Limited Drops</p><a class="shop-hero-action" href="#shop">Shop Collection</a></div></header>`;
 }
 
 function finalCta() {
@@ -457,7 +457,7 @@ function shopPage() {
   }).join("");
   const body = `${shopHero()}
   <section class="light merch-section" id="shop"><div class="container"><div class="section-head reveal"><span class="eyebrow tag-on-light">ORDS Essentials</span><h2>Shop merch.</h2><p>Preview each product, choose your color, and purchase or request details.</p></div><div class="product-grid merch-grid shop-catalog">${productCards}</div></div></section>`;
-  return layout({ slug: "shop", title: "Shop | ORDS Music Academy", desc: "Shop ORDS Classic Oversized T's and hats.", body });
+  return layout({ slug: "shop", title: "ORDS Apparel | ORDS Music Academy", desc: "Shop ORDS apparel, including Classic Oversized T's, hats, and future limited drops.", body });
 }
 
 function productPage(product) {
