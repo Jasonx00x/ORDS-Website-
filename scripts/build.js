@@ -7,7 +7,7 @@ const dist = path.join(root, "dist");
 const siteUrl = "https://ordsmusic.com";
 const siteName = "ORDS Music School & Studio";
 const socialImage = "https://res.cloudinary.com/dtmonxj1h/image/upload/q_auto/f_auto/v1781886182/ORDS_Music_School_Studio_nloflc.jpg";
-const assetVersion = "20260803-student-action-photos";
+const assetVersion = "20260819-silver-spring-funnel";
 
 const logo = "https://static.wixstatic.com/media/a51682_27dfdd46028443e7a016d349782ffa8f~mv2.png";
 const favicon = "/assets/WhiteStick-Logo.png";
@@ -25,6 +25,7 @@ const drumStudentImg = "https://res.cloudinary.com/dtmonxj1h/image/upload/f_auto
 const guitarStudentImg = "https://res.cloudinary.com/dtmonxj1h/image/upload/f_auto,q_auto:good,w_2200/v1785793373/7IV00534_1_anytrr.jpg";
 const mixingStudentImg = "https://res.cloudinary.com/dtmonxj1h/image/upload/f_auto,q_auto:good,w_2200/v1785793375/7IV00748_1_uggmhs.jpg";
 const angelImg = "/assets/angel-vocal-instructor.jpg";
+const bryanImg = "https://static.wixstatic.com/media/fc478d_3cfc0ded764d423686c837a6b2d96941~mv2.jpg";
 const instructorInstagram = {
   "Bryan": { url: "https://www.instagram.com/adonai.wav/", handle: "@adonai.wav" },
   "Oscar Ramos": { url: "https://www.instagram.com/tito_ovr/", handle: "@tito_ovr" },
@@ -310,6 +311,48 @@ function layout({ slug, title, desc, body, image = socialImage, ogTitle, ogDesc,
 </html>`;
 }
 
+function funnelLayout({ slug, title, desc, body, image = bryanImg, noindex = false }) {
+  pages.push({ slug, title, desc, noindex });
+  const canonical = `${siteUrl}/${slug}`;
+  return `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>${escapeHtml(title)}</title>
+  <meta name="description" content="${escapeHtml(desc)}">
+  ${noindex ? '<meta name="robots" content="noindex, nofollow">' : ""}
+  <link rel="canonical" href="${canonical}">
+  <meta name="theme-color" content="#05070d">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="${siteName}">
+  <meta property="og:title" content="${escapeHtml(title)}">
+  <meta property="og:description" content="${escapeHtml(desc)}">
+  <meta property="og:url" content="${canonical}">
+  <meta property="og:image" content="${image}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="${escapeHtml(title)}">
+  <meta name="twitter:description" content="${escapeHtml(desc)}">
+  <meta name="twitter:image" content="${image}">
+  <link rel="icon" type="image/png" href="${favicon}">
+  <link rel="apple-touch-icon" href="${favicon}">
+  <link rel="preconnect" href="https://static.wixstatic.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css?v=${assetVersion}">
+  <script type="application/ld+json">${JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "Private Drum Lessons with Bryan",
+    description: desc,
+    areaServed: { "@type": "City", name: "Silver Spring, Maryland" },
+    provider: { "@type": "MusicSchool", name: siteName, url: siteUrl, telephone: "+17034758719" }
+  })}</script>
+</head>
+<body class="funnel-page">${body}<script src="/js/main.js?v=${assetVersion}"></script></body>
+</html>`;
+}
+
 function hero({ eyebrow, h1, span, lead, image, video, ctas = true, align = "left", className = "" }) {
   const media = video
     ? `<video class="hero-media" autoplay muted loop playsinline poster="${image}"><source src="${video}" type="video/mp4"></video>`
@@ -494,6 +537,43 @@ function studioPage() {
   return layout({ slug: "ords-studio", title: "Audio Production & Recording Studio | ORDS Music School & Studio", desc: "ORDS Studio offers recording, mixing, mastering, production support, and audio learning pathways.", body, image: studioImg });
 }
 
+function silverSpringDrumFunnelPage() {
+  const slug = "silver-spring-drum-lessons";
+  const title = "Silver Spring Drum Lessons with Bryan | ORDS Music School";
+  const desc = "Schedule a free consultation for private drum lessons in Silver Spring, Maryland with Bryan and the ORDS Music School team.";
+  const bookingCalendar = `<div class="funnel-calendar-shell" id="booking-calendar"><div class="funnel-calendar-heading"><span class="eyebrow tag-on-light">Book with ORDS</span><h2>Choose a consultation time.</h2><p>Pick a day and time to speak with the ORDS team about Silver Spring drum lessons with Bryan.</p></div><div class="calendly-inline-widget" data-url="https://calendly.com/alfaroje26/30min?hide_event_type_details=1&primary_color=111936" style="min-width:320px;height:700px;"></div></div><script>(function(){var widget=document.querySelector('#booking-calendar .calendly-inline-widget');if(widget){var url=new URL(widget.dataset.url);var pageParams=new URLSearchParams(window.location.search);['utm_source','utm_medium','utm_campaign','utm_content','utm_term'].forEach(function(key){var value=pageParams.get(key);if(value)url.searchParams.set(key,value);});widget.dataset.url=url.toString();}window.addEventListener('message',function(event){if(event.origin==='https://calendly.com'&&event.data&&event.data.event==='calendly.event_scheduled'){window.location.assign('/silver-spring-drum-lessons-thank-you');}});})();</script><script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>`;
+
+  const body = `<header class="funnel-hero">
+    <div class="funnel-topbar"><a class="funnel-brand" href="/" aria-label="ORDS home"><img src="${logo}" alt=""><strong>ORDS</strong></a><a class="funnel-call" href="tel:+17034758719"><span>Questions?</span><strong>Call (703) 475-8719</strong></a></div>
+    <img class="funnel-hero-media" src="${bryanImg}" alt="Bryan teaching drums with ORDS" fetchpriority="high" decoding="async">
+    <div class="funnel-hero-shade"></div>
+    <div class="funnel-hero-content"><span class="funnel-location">Silver Spring ORDS Team</span><h1>Private drum lessons <em>with Bryan &amp; ORDS.</em></h1><p>Bryan teaches as part of the ORDS instructor team, helping students build timing, technique, confidence, and disciplined practice at their current level.</p><div class="funnel-hero-actions"><a class="funnel-primary" href="#booking-calendar">View Consultation Times</a><a class="funnel-secondary" href="#meet-bryan">Meet Bryan</a></div><div class="funnel-proof"><span><b>ORDS</b> team support</span><span><b>10+</b> years playing</span><span><b>All</b> skill levels</span></div></div>
+  </header>
+  <main>
+    <section class="funnel-intro"><div class="funnel-wrap funnel-intro-grid"><div><span class="funnel-overline">Silver Spring ORDS Team</span><h2>One music school. A lesson path built around the student.</h2><p>Bryan represents ORDS in Silver Spring as part of the wider instructor team. Students receive focused drum instruction backed by the same ORDS values: discipline, order, practice, creativity, and excellence.</p><div class="funnel-checks"><span>Beginners are welcome</span><span>Personalized lesson direction</span><span>Practical skills for songs and performance</span><span>Support from the ORDS team</span></div></div>${bookingCalendar}</div></section>
+    <section class="funnel-skills"><div class="funnel-wrap"><div class="funnel-section-heading"><span class="funnel-overline">What students can build</span><h2>Strong foundations. Confident playing.</h2></div><div class="funnel-skill-grid"><article><strong>01</strong><h3>Rhythm & timing</h3><p>Learn to count, stay in time, and build grooves that feel steady and musical.</p></article><article><strong>02</strong><h3>Technique & control</h3><p>Develop grip, coordination, dynamics, fills, and cleaner movement around the kit.</p></article><article><strong>03</strong><h3>Practice with purpose</h3><p>Leave each lesson knowing what to work on and why it matters for progress.</p></article></div></div></section>
+    <section class="funnel-bryan" id="meet-bryan"><div class="funnel-wrap funnel-bryan-grid"><div class="funnel-bryan-photo"><img src="${bryanImg}" alt="Bryan, Silver Spring ORDS drum instructor" loading="lazy" decoding="async"></div><div><span class="funnel-overline">Meet an ORDS instructor</span><h2>Bryan</h2><p class="funnel-bryan-role">Silver Spring ORDS Team / Drum Instructor</p><p>Bryan has more than 10 years of drumming experience, beginning with a strong foundation in middle and high school band. As an ORDS instructor, his lessons focus on fundamentals, dependable timing, and disciplined practice so students can grow with confidence behind the kit.</p><div class="funnel-bryan-facts"><span>10+ years of experience</span><span>School band foundation</span><span>Backed by ORDS</span></div></div></div></section>
+    <section class="funnel-process"><div class="funnel-wrap"><div class="funnel-section-heading"><span class="funnel-overline">What happens next</span><h2>Simple from the first conversation.</h2></div><div class="funnel-process-grid"><article><span>1</span><h3>Choose a time</h3><p>Use the ORDS calendar to schedule a free 30-minute consultation.</p></article><article><span>2</span><h3>Talk with ORDS</h3><p>Tell the team about the student's experience, goals, and scheduling needs.</p></article><article><span>3</span><h3>Plan the next step</h3><p>If the fit is right, ORDS will help you move forward with Bryan's drum lessons.</p></article></div></div></section>
+    <section class="funnel-faq"><div class="funnel-wrap funnel-faq-grid"><div><span class="funnel-overline">Common questions</span><h2>Before you schedule.</h2><p>Still unsure? Call ORDS at <a href="tel:+17034758719">(703) 475-8719</a>.</p></div><div class="funnel-faq-list"><details open><summary>Are beginners welcome?</summary><p>Yes. Bryan can help students start with fundamentals such as grip, posture, counting, coordination, and basic grooves.</p></details><details><summary>Where are these lessons offered?</summary><p>This campaign is for private drum lesson availability through the Silver Spring ORDS team. Exact lesson and scheduling details are confirmed during consultation.</p></details><details><summary>Is Bryan part of ORDS?</summary><p>Yes. Bryan is an ORDS drum instructor serving the Silver Spring program and works as part of the wider ORDS Music School team.</p></details><details><summary>How much are lessons?</summary><p>Schedule a free consultation and the ORDS team will confirm current pricing, availability, and lesson details before you make any commitment.</p></details></div></div></section>
+    <section class="funnel-final"><div class="funnel-wrap"><span class="funnel-overline">Ready to start?</span><h2>Schedule with the Silver Spring ORDS team.</h2><p>Choose a free 30-minute consultation time.</p><a class="funnel-primary" href="#booking-calendar">View Consultation Times</a></div></section>
+  </main>
+  <footer class="funnel-footer"><div class="funnel-wrap"><a class="funnel-brand" href="/"><img src="${logo}" alt=""><strong>ORDS</strong></a><div><a href="mailto:Ramosods@gmail.com">Ramosods@gmail.com</a><a href="/privacy">Privacy</a></div><p>© ORDS Music Academy</p></div></footer>`;
+  return funnelLayout({ slug, title, desc, body, image: bryanImg, noindex: true });
+}
+
+function silverSpringDrumThankYouPage() {
+  const slug = "silver-spring-drum-lessons-thank-you";
+  const title = "Consultation Scheduled | ORDS Silver Spring Drum Lessons";
+  const desc = "Your ORDS Silver Spring drum lesson consultation has been scheduled.";
+  const body = `<main class="funnel-thanks"><div class="funnel-thanks-shell"><a class="funnel-brand" href="/"><img src="${logo}" alt=""><strong>ORDS</strong></a><div class="funnel-success-mark" aria-hidden="true">✓</div><span class="funnel-overline">Consultation scheduled</span><h1>You're one step closer to the kit.</h1><p>Your consultation with the ORDS team is booked. Check your email for the Calendly confirmation and meeting details.</p><div class="funnel-next"><strong>What happens next</strong><span>1. Keep the Calendly confirmation for your scheduled time.</span><span>2. Tell ORDS about the student's experience and goals.</span><span>3. We will help you decide whether lessons with Bryan are the right fit.</span></div><a class="funnel-primary" href="tel:+17034758719">Call ORDS: (703) 475-8719</a><a class="funnel-text-link" href="/silver-spring-drum-lessons">Return to lesson page</a></div><script>window.addEventListener('load',function(){if(typeof window.fbq==='function'){window.fbq('track','Schedule');}if(Array.isArray(window.dataLayer)){window.dataLayer.push({event:'schedule_consultation',lead_type:'silver_spring_drum_lessons'});}});</script></main>`;
+  return funnelLayout({ slug, title, desc, body, image: bryanImg, noindex: true });
+}
+
+function privacyPage() {
+  const body = `<main class="privacy-page"><div class="privacy-wrap"><a class="funnel-brand" href="/"><img src="${logo}" alt=""><strong>ORDS</strong></a><span class="funnel-overline">ORDS Music Academy</span><h1>Privacy Policy</h1><p class="privacy-updated">Last updated August 19, 2026</p><h2>Information we collect</h2><p>When you submit an ORDS form, we may collect your name, email address, phone number, student age, musical experience, scheduling preferences, goals, referral information, and campaign attribution data included in the page URL.</p><h2>How we use information</h2><p>We use this information to respond to inquiries, discuss lesson or studio availability, provide requested services, improve our advertising and website, and maintain business records.</p><h2>Contact by phone, text, or email</h2><p>If you submit a lesson request and provide consent, ORDS may contact you about that request by phone, text message, or email. Message and data rates may apply. You may ask us to stop contacting you at any time.</p><h2>Service providers</h2><p>We may use service providers such as Netlify to host the website and process form submissions, Calendly for scheduling, Square for purchases, and advertising or analytics platforms to understand campaign performance. These providers handle information under their own terms and privacy practices.</p><h2>Sharing</h2><p>ORDS does not sell personal information. We may share information with service providers when needed to operate the website, respond to requests, process services, comply with law, or protect ORDS and its users.</p><h2>Data choices</h2><p>You may ask to review, correct, or delete information you submitted by contacting ORDS. Some records may be retained when reasonably necessary for legal, security, or business purposes.</p><h2>Contact</h2><p>Questions about this policy may be sent to <a href="mailto:Ramosods@gmail.com">Ramosods@gmail.com</a> or discussed by calling <a href="tel:+17034758719">(703) 475-8719</a>.</p><a class="funnel-primary" href="/">Return to ORDS</a></div></main>`;
+  return funnelLayout({ slug: "privacy", title: "Privacy Policy | ORDS Music Academy", desc: "Learn how ORDS Music Academy handles information submitted through its website.", body, image: socialImage });
+}
+
 function simplePage(slug, title, desc, heading, message) {
   const body = `<main class="white" style="min-height:72vh;padding-top:160px"><div class="container center reveal visible"><span class="eyebrow tag-on-light">${heading}</span><h1 style="font-size:clamp(46px,7vw,88px);letter-spacing:-.06em;line-height:.95">${title}</h1><p style="font-size:20px;line-height:1.7;color:#596174;max-width:760px;margin:20px auto">${message}</p><div class="cta-row" style="justify-content:center"><a class="btn" href="/">Back Home</a><a class="btn secondary" href="/consultation">Book Consultation</a></div></div></main>`;
   return layout({ slug, title, desc, body });
@@ -516,10 +596,13 @@ merchProducts.forEach((product) => {
 writePage("raffle", rafflePage());
 writePage("ords-studio", studioPage());
 programs.forEach((p) => writePage(p.slug, programPage(p)));
+writePage("silver-spring-drum-lessons", silverSpringDrumFunnelPage());
+writePage("silver-spring-drum-lessons-thank-you", silverSpringDrumThankYouPage());
+writePage("privacy", privacyPage());
 writePage("thank-you", simplePage("thank-you", "Thank you.", "Your ORDS request was received.", "Request Sent", "The ORDS team will follow up with you soon."));
 writePage("404", simplePage("404", "Page not found.", "The requested ORDS page could not be found.", "404", "That page does not exist. Use the links below to get back to the website."));
 
 fs.writeFileSync(path.join(dist, "robots.txt"), `User-agent: *\nAllow: /\nSitemap: ${siteUrl}/sitemap.xml\n`);
-fs.writeFileSync(path.join(dist, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages.filter((p) => p.slug !== "404").map((p) => `  <url><loc>${siteUrl}${pagePath(p.slug)}</loc></url>`).join("\n")}\n</urlset>\n`);
+fs.writeFileSync(path.join(dist, "sitemap.xml"), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages.filter((p) => p.slug !== "404" && !p.noindex).map((p) => `  <url><loc>${siteUrl}${pagePath(p.slug)}</loc></url>`).join("\n")}\n</urlset>\n`);
 
 console.log(`Built ${pages.length} pages into ${dist}`);
