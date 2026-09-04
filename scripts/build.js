@@ -7,7 +7,7 @@ const dist = path.join(root, "dist");
 const siteUrl = "https://ordsmusic.com";
 const siteName = "ORDS Music School & Studio";
 const socialImage = "https://res.cloudinary.com/dtmonxj1h/image/upload/q_auto/f_auto/v1781886182/ORDS_Music_School_Studio_nloflc.jpg";
-const assetVersion = "20260819-silver-spring-funnel";
+const assetVersion = "20260903-cropped-tee-checkout";
 
 const logo = "https://static.wixstatic.com/media/a51682_27dfdd46028443e7a016d349782ffa8f~mv2.png";
 const favicon = "/assets/WhiteStick-Logo.png";
@@ -172,6 +172,32 @@ const programs = [
 
 const merchProducts = [
   {
+    id: "ii-kings-cropped-tee",
+    name: "II Kings 3:15 Cropped Tee",
+    category: "Cropped Tees",
+    status: "New",
+    price: 50,
+    paymentUrl: "https://square.link/u/Ui1dHENI",
+    image: "/assets/cropped-tee-front-product.jpg",
+    description: "A heavyweight cropped tee featuring II Kings 3:15 on the front and \"Music That Calls Upon the Lord\" across the back.",
+    media: [
+      { type: "image", src: "/assets/cropped-tee-front-product.jpg", alt: "Front detail" },
+      { type: "image", src: "/assets/cropped-tee-back-product.jpg", alt: "Back detail" },
+      { type: "image", src: "/assets/cropped-tee-front-model.jpg", alt: "Front fit" },
+      { type: "image", src: "/assets/cropped-tee-back-model.jpg", alt: "Back fit" }
+    ],
+    sizes: ["Small", "Medium", "Large", "XL", "XXL"],
+    details: [
+      "Heavyweight cropped silhouette",
+      "II Kings 3:15 front graphic",
+      "Statement back graphic",
+      "Natural cream colorway",
+      "Sizes Small through XXL"
+    ],
+    thanksSlug: "cropped-tee-thank-you",
+    thankYou: true
+  },
+  {
     id: "classic-oversized-tee",
     name: "Classic Oversized T's",
     category: "Tees",
@@ -228,6 +254,12 @@ function cleanDist() {
   fs.copyFileSync(path.join(src, "styles.css"), path.join(dist, "css", "styles.css"));
   fs.copyFileSync(path.join(src, "main.js"), path.join(dist, "js", "main.js"));
   fs.copyFileSync(path.join(src, "assets", "WhiteStick-Logo.png"), path.join(dist, "assets", "WhiteStick-Logo.png"));
+  [
+    "cropped-tee-front-model.jpg",
+    "cropped-tee-back-model.jpg",
+    "cropped-tee-front-product.jpg",
+    "cropped-tee-back-product.jpg"
+  ].forEach((asset) => fs.copyFileSync(path.join(src, "assets", asset), path.join(dist, "assets", asset)));
   if (angelAsset) fs.writeFileSync(path.join(dist, "assets", "angel-vocal-instructor.jpg"), angelAsset);
 }
 
@@ -377,14 +409,15 @@ function programCardMedia(p) {
 }
 
 function productPriceLabel(product) {
-  return product.price ? `$${product.price}` : "Request price";
+  return product.price ? `$${product.price}` : product.priceLabel || "Request price";
 }
 
 function productSlug(product) {
-  return product.id === "classic-oversized-tee" ? "classic-oversized-tee" : "ords-hat";
+  return product.slug || product.id;
 }
 
 function productThanksSlug(product) {
+  if (product.thanksSlug) return product.thanksSlug;
   return product.id === "classic-oversized-tee" ? "classic-tee-thank-you" : "hat-thank-you";
 }
 
@@ -396,7 +429,7 @@ function productSizeOptions(product, extraClass = "") {
 
 function productVariants(product) {
   return product.variants || [
-    { name: "Default", color: "", media: [{ type: "image", src: product.image }, ...(product.altImage ? [{ type: "image", src: product.altImage }] : [])] }
+    { name: "Default", color: "", media: product.media || [{ type: "image", src: product.image }, ...(product.altImage ? [{ type: "image", src: product.altImage }] : [])] }
   ];
 }
 
@@ -488,40 +521,48 @@ function consultationPage() {
 function shopPage() {
   const productCards = merchProducts.map((product) => {
     const priceLabel = productPriceLabel(product);
-    const priceMarkup = product.price ? `<strong>${priceLabel}</strong>` : `<strong class="price-request">Request price</strong>`;
+    const priceMarkup = product.price ? `<strong>${priceLabel}</strong>` : `<strong class="price-request">${priceLabel}</strong>`;
     const previewFrame = product.variants
       ? `<div class="gallery-frame shop-variant-frame"><img class="merch-main-media gallery-main shop-active-image" src="${product.variants[0].media.find((media) => media.type === "image").src}" alt="${escapeHtml(product.variants[0].name)} ${escapeHtml(product.name)}" loading="lazy" decoding="async"><span class="stock-pill">${product.status}</span><span class="color-count-pill">Black + White</span></div>`
+      : product.media?.length > 1
+        ? `<div class="gallery-frame shop-scroll-gallery"><img class="merch-main-media gallery-main shop-active-image" src="${product.media[0].src}" alt="${escapeHtml(product.media[0].alt || product.name)}" loading="lazy" decoding="async"><span class="stock-pill">${product.status}</span><span class="shop-gallery-count"><b data-shop-current>1</b> / ${product.media.length}</span><div class="shop-gallery-arrows"><button type="button" data-shop-media-step="-1" aria-label="Previous ${escapeHtml(product.name)} photo">&#8249;</button><button type="button" data-shop-media-step="1" aria-label="Next ${escapeHtml(product.name)} photo">&#8250;</button></div></div>`
       : `<div class="gallery-frame"><img class="merch-main-media gallery-main" src="${product.image}" alt="${escapeHtml(product.name)}" loading="lazy" decoding="async"><span class="stock-pill">${product.status}</span></div>`;
     const colorNote = product.variants ? `<div class="shop-color-note">${product.variants.map((variant, index) => `<button class="${index === 0 ? "active" : ""}" type="button" data-shop-variant="${escapeHtml(variant.name)}" data-shop-image="${(variant.media.find((media) => media.type === "image") || variant.media[0]).src}"><i style="--swatch:${variant.color}"></i>${variant.name}</button>`).join("")}</div>` : "";
     const action = product.paymentUrl
-      ? `<a class="btn merch-buy" href="${product.paymentUrl}" target="_blank" rel="noopener noreferrer">Buy Now</a>`
+      ? `<a class="btn merch-buy" href="${product.paymentUrl}">Buy Now</a>`
       : `<a class="btn merch-buy" href="/${productSlug(product)}">View Details</a>`;
     return `<article class="product-card merch-card shop-product-card reveal" data-product-id="${product.id}" data-product-name="${escapeHtml(product.name)}" data-product-price="${product.price || ""}" data-product-price-label="${priceLabel}" data-product-sizes="${product.sizes.join("|")}" data-product-variants="${escapeHtml(JSON.stringify(productVariants(product)))}">${previewFrame}<div class="product-body"><div class="product-meta"><span>${product.category}</span>${priceMarkup}</div><h3>${product.name}</h3><p>${product.description}</p>${colorNote}${productSizeOptions(product)}${action}</div></article>`;
   }).join("");
   const body = `${shopHero()}
   <section class="light merch-section" id="shop"><div class="container"><div class="section-head reveal"><span class="eyebrow tag-on-light">ORDS Essentials</span><h2>Shop merch.</h2><p>Preview each product, choose your color, and purchase or request details.</p></div><div class="product-grid merch-grid shop-catalog">${productCards}</div></div></section>`;
-  return layout({ slug: "shop", title: "ORDS Apparel | ORDS Music Academy", desc: "Shop ORDS apparel, including Classic Oversized T's, hats, and future limited drops.", body });
+  return layout({ slug: "shop", title: "ORDS Apparel | ORDS Music Academy", desc: "Shop ORDS apparel, including the II Kings 3:15 Cropped Tee, Classic Oversized T's, hats, and future limited drops.", body });
 }
 
 function productPage(product) {
-  const isTee = product.id === "classic-oversized-tee";
-  const priceLine = product.price ? "Price" : "Request details";
+  const isTee = product.category.toLowerCase().includes("tee");
+  const priceLine = product.price ? "Price" : product.previewOnly ? "Release" : "Request details";
+  const croppedTeeRequestForm = `<form class="product-form product-request-form" name="cropped-tee-request" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/${productThanksSlug(product)}" data-product-request-form data-unit-price="${product.price}"><input type="hidden" name="form-name" value="cropped-tee-request"><input type="hidden" name="subject" value="New ORDS cropped tee request"><input type="hidden" name="product" value="${escapeHtml(product.name)}"><input type="hidden" name="unit-price" value="${productPriceLabel(product)}"><input type="hidden" name="size" value="" data-product-size-input><input type="hidden" name="estimated-total" value="${productPriceLabel(product)}" data-product-total-input><p class="hidden-field"><label>Do not fill this out: <input name="bot-field"></label></p><div class="product-form-row"><label>Quantity<input name="quantity" type="number" min="1" max="10" value="1" inputmode="numeric" required data-product-quantity></label><label>Full name<input name="name" autocomplete="name" required placeholder="Your name"></label></div><label>Email<input name="email" type="email" autocomplete="email" required placeholder="Your email"></label><label>Phone<input name="phone" type="tel" autocomplete="tel" required placeholder="Your phone"></label><label>Notes <span class="optional-label">Optional</span><textarea name="message" rows="3" placeholder="Pickup timing or anything else we should know."></textarea></label><div class="product-request-summary"><span>Estimated total</span><strong data-product-request-total>${productPriceLabel(product)}</strong></div><p class="product-size-error" data-product-size-error hidden>Please select a shirt size above.</p><button class="btn product-primary-action" type="submit">Send Tee Request</button><p class="product-action-note">No payment is collected here. ORDS will confirm availability and payment details.</p></form>`;
   const action = product.paymentUrl
-    ? `<a class="btn product-primary-action" href="${product.paymentUrl}" target="_blank" rel="noopener noreferrer">Buy Now</a>`
-    : `<form class="product-form" name="hat-request" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/${productThanksSlug(product)}"><input type="hidden" name="form-name" value="hat-request"><input type="hidden" name="subject" value="New ORDS hat request"><input type="hidden" name="product" value="${escapeHtml(product.name)}"><p class="hidden-field"><label>Do not fill this out: <input name="bot-field"></label></p><label>Name<input name="name" required placeholder="Your name"></label><label>Email<input name="email" type="email" required placeholder="Your email"></label><label>Phone<input name="phone" type="tel" required placeholder="Your phone"></label><label>Pickup notes<textarea name="message" rows="3" placeholder="Size, pickup timing, or questions."></textarea></label><button class="btn product-primary-action" type="submit">Request Hat Details</button></form>`;
-  const details = isTee
+    ? `<a class="btn product-primary-action" href="${product.paymentUrl}">Buy Now</a>`
+    : product.previewOnly
+      ? croppedTeeRequestForm
+      : `<form class="product-form" name="hat-request" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/${productThanksSlug(product)}"><input type="hidden" name="form-name" value="hat-request"><input type="hidden" name="subject" value="New ORDS hat request"><input type="hidden" name="product" value="${escapeHtml(product.name)}"><p class="hidden-field"><label>Do not fill this out: <input name="bot-field"></label></p><label>Name<input name="name" required placeholder="Your name"></label><label>Email<input name="email" type="email" required placeholder="Your email"></label><label>Phone<input name="phone" type="tel" required placeholder="Your phone"></label><label>Pickup notes<textarea name="message" rows="3" placeholder="Size, pickup timing, or questions."></textarea></label><button class="btn product-primary-action" type="submit">Request Hat Details</button></form>`;
+  const details = product.details || (isTee
     ? ["Oversized fit with a clean everyday shape", "Embroidered ORDS logo detail", "Available in black and white", "Sizes Small through XXL"]
-    : ["One size", "Clean ORDS front mark", "Everyday student and supporter fit", "Pickup details confirmed by ORDS"];
-  const body = `<main class="light product-detail-page"><section class="product-detail-section"><div class="container"><a class="back-link reveal" href="/shop">Back to shop</a><div class="product-detail-grid"><div class="reveal">${productGallery(product, "detail")}</div><div class="product-detail-panel reveal"><span class="eyebrow tag-on-light">${product.category}</span><div class="product-title-row"><h1>${product.name}</h1>${product.price ? `<strong>$${product.price}</strong>` : ""}</div><p class="product-lead">${product.description}</p><div class="product-price-row"><span>${priceLine}</span>${product.price ? `<strong>$${product.price}</strong>` : ""}</div><div class="product-fit-note"><strong>Available sizes</strong><span>${product.sizes.join(" / ")}</span></div>${productSizeOptions(product, "product-size-chips")}<div class="detail-list">${details.map((detail) => `<div><span></span><p>${detail}</p></div>`).join("")}</div><div class="product-actions">${action}</div></div></div></div></section></main>`;
+    : ["One size", "Clean ORDS front mark", "Everyday student and supporter fit", "Pickup details confirmed by ORDS"]);
+  const body = `<main class="light product-detail-page"><section class="product-detail-section"><div class="container"><a class="back-link reveal" href="/shop">Back to shop</a><div class="product-detail-grid"><div class="reveal">${productGallery(product, "detail")}</div><div class="product-detail-panel reveal"><span class="eyebrow tag-on-light">${product.category}</span><div class="product-title-row"><h1>${product.name}</h1>${product.price ? `<strong>$${product.price}</strong>` : ""}</div><p class="product-lead">${product.description}</p><div class="product-price-row"><span>${priceLine}</span><strong>${productPriceLabel(product)}</strong></div><div class="product-fit-note"><strong>Available sizes</strong><span>${product.sizes.join(" / ")}</span></div>${productSizeOptions(product, "product-size-chips")}<div class="detail-list">${details.map((detail) => `<div><span></span><p>${detail}</p></div>`).join("")}</div><div class="product-actions">${action}</div></div></div></div></section></main>`;
   return layout({ slug: productSlug(product), title: `${product.name} | ORDS Shop`, desc: product.description, image: product.image, body });
 }
 
 function productThankYouPage(product) {
-  const isTee = product.id === "classic-oversized-tee";
-  const heading = isTee ? "Classic Tee Order" : "Hat Request";
-  const message = isTee
-    ? "Thanks for supporting ORDS. Your Classic Oversized T's order is being handled through checkout."
-    : "Your ORDS hat request was received. The ORDS team will follow up with pickup or payment details.";
+  const isClassicTee = product.id === "classic-oversized-tee";
+  const isCroppedTee = product.id === "ii-kings-cropped-tee";
+  const heading = isCroppedTee ? "Cropped Tee Request" : isClassicTee ? "Classic Tee Order" : "Hat Request";
+  const message = isCroppedTee
+    ? "Your II Kings 3:15 Cropped Tee request was received. The ORDS team will confirm availability, pickup, and payment details."
+    : isClassicTee
+      ? "Thanks for supporting ORDS. Your Classic Oversized T's order is being handled through checkout."
+      : "Your ORDS hat request was received. The ORDS team will follow up with pickup or payment details.";
   const body = `<main class="white product-thanks"><div class="container center reveal visible"><span class="eyebrow tag-on-light">${heading}</span><h1>Thank you.</h1><p>${message}</p><div class="cta-row" style="justify-content:center"><a class="btn" href="/shop">Back to Shop</a><a class="btn secondary" href="/consultation">Book Consultation</a></div></div></main>`;
   return layout({ slug: productThanksSlug(product), title: `${heading} Thank You | ORDS`, desc: message, body, image: product.image });
 }
@@ -591,7 +632,7 @@ writePage("consultation", consultationPage());
 writePage("shop", shopPage());
 merchProducts.forEach((product) => {
   writePage(productSlug(product), productPage(product));
-  writePage(productThanksSlug(product), productThankYouPage(product));
+  if (product.thankYou !== false) writePage(productThanksSlug(product), productThankYouPage(product));
 });
 writePage("raffle", rafflePage());
 writePage("ords-studio", studioPage());

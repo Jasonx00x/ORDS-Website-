@@ -108,6 +108,20 @@ function setCardVariant(card,variantName,mediaIndex=0){
   card.querySelectorAll('.variant-preview').forEach(btn=>btn.classList.toggle('active',btn.dataset.variant===variant.name));
   renderMediaRail(card,product,variant,mediaIndex);
 }
+function setShopCardMedia(card,nextIndex){
+  const product=merchProducts.find(item=>item.id===card.dataset.productId);
+  const media=product?.variants?.[0]?.media||[];
+  const image=card.querySelector('.shop-active-image');
+  if(!image||media.length<2)return;
+  const index=(nextIndex+media.length)%media.length;
+  const next=media[index];
+  if(next?.type!=='image')return;
+  image.src=next.src;
+  image.alt=next.alt||card.dataset.productName;
+  card.dataset.shopMediaIndex=String(index);
+  const current=card.querySelector('[data-shop-current]');
+  if(current)current.textContent=String(index+1);
+}
 function setMerchProduct(product){
   if(!product)return;
   const card=merchCards.find(item=>item.dataset.productId===product.id);
@@ -214,10 +228,29 @@ customSelects.forEach(select=>{
 merchCards.forEach(card=>{
   const product=merchProducts.find(item=>item.id===card.dataset.productId);
   if(product?.variants?.length&&!card.classList.contains('shop-product-card'))setCardVariant(card,product.variants[0].name,0);
+  const shopGallery=card.querySelector('.shop-scroll-gallery');
+  if(shopGallery){
+    let touchStartX=0;
+    shopGallery.addEventListener('touchstart',event=>{touchStartX=event.touches[0]?.clientX||0},{passive:true});
+    shopGallery.addEventListener('touchend',event=>{
+      const distance=(event.changedTouches[0]?.clientX||0)-touchStartX;
+      if(Math.abs(distance)<45)return;
+      const current=Number(card.dataset.shopMediaIndex||0);
+      setShopCardMedia(card,current+(distance<0?1:-1));
+    },{passive:true});
+  }
   card.addEventListener('click',event=>{
+    const shopMediaControl=event.target.closest('[data-shop-media-step]');
     const shopVariant=event.target.closest('[data-shop-variant]');
     const swatch=event.target.closest('.variant-swatch,.variant-preview');
     const thumb=event.target.closest('.media-thumb');
+    if(shopMediaControl){
+      const current=Number(card.dataset.shopMediaIndex||0);
+      setShopCardMedia(card,current+Number(shopMediaControl.dataset.shopMediaStep||0));
+      event.preventDefault();
+      event.stopPropagation();
+      return;
+    }
     if(shopVariant){
       const img=card.querySelector('.shop-active-image');
       const variant=shopVariant.dataset.shopVariant;
@@ -250,6 +283,39 @@ document.querySelectorAll('.size-chips').forEach(group=>{
       button.setAttribute('aria-pressed',selected?'true':'false');
     });
     group.dataset.selectedSize=option.dataset.sizeOption;
+    const panel=group.closest('.product-detail-panel');
+    const sizeInput=panel?.querySelector('[data-product-size-input]');
+    const sizeError=panel?.querySelector('[data-product-size-error]');
+    if(sizeInput)sizeInput.value=option.dataset.sizeOption;
+    if(sizeError)sizeError.hidden=true;
+    group.removeAttribute('aria-invalid');
+  });
+});
+document.querySelectorAll('[data-product-request-form]').forEach(form=>{
+  const quantity=form.querySelector('[data-product-quantity]');
+  const totalText=form.querySelector('[data-product-request-total]');
+  const totalInput=form.querySelector('[data-product-total-input]');
+  const updateTotal=()=>{
+    const unitPrice=Number(form.dataset.unitPrice||0);
+    const amount=Math.max(1,Math.min(10,Number(quantity?.value||1)));
+    const total=`$${unitPrice*amount}`;
+    if(totalText)totalText.textContent=total;
+    if(totalInput)totalInput.value=total;
+  };
+  quantity?.addEventListener('input',updateTotal);
+  updateTotal();
+  form.addEventListener('submit',event=>{
+    const panel=form.closest('.product-detail-panel');
+    const sizeGroup=panel?.querySelector('.product-size-chips');
+    const sizeInput=form.querySelector('[data-product-size-input]');
+    const sizeError=form.querySelector('[data-product-size-error]');
+    const selectedSize=sizeGroup?.dataset.selectedSize||'';
+    if(sizeInput)sizeInput.value=selectedSize;
+    if(selectedSize)return;
+    event.preventDefault();
+    if(sizeError)sizeError.hidden=false;
+    sizeGroup?.setAttribute('aria-invalid','true');
+    sizeGroup?.querySelector('[data-size-option]')?.focus();
   });
 });
 document.addEventListener('click',event=>{
