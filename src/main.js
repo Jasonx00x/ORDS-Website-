@@ -97,27 +97,31 @@ function setCardVariant(card,variantName,mediaIndex=0){
   const variant=product.variants.find(item=>item.name===variantName)||product.variants[0];
   const media=variant.media?.[mediaIndex]||variant.media?.[0];
   const frame=card.querySelector('.gallery-frame');
-  const stock=frame?.querySelector('.stock-pill');
   if(frame){
-    frame.innerHTML=mediaMarkup(product,media);
+    const currentMedia=frame.querySelector('.merch-main-media');
+    if(currentMedia)currentMedia.outerHTML=mediaMarkup(product,media);
+    else frame.insertAdjacentHTML('afterbegin',mediaMarkup(product,media));
     silenceMerchVideo(frame.querySelector('video'));
-    if(stock)frame.appendChild(stock);
   }
   card.dataset.selectedVariant=variant.name;
+  card.dataset.selectedMediaIndex=String(mediaIndex);
+  const current=card.querySelector('[data-gallery-current]');
+  if(current)current.textContent=String(mediaIndex+1);
   card.querySelectorAll('.variant-swatch').forEach(btn=>btn.classList.toggle('active',btn.dataset.variant===variant.name));
   card.querySelectorAll('.variant-preview').forEach(btn=>btn.classList.toggle('active',btn.dataset.variant===variant.name));
   renderMediaRail(card,product,variant,mediaIndex);
 }
 function setShopCardMedia(card,nextIndex){
   const product=merchProducts.find(item=>item.id===card.dataset.productId);
-  const media=product?.variants?.[0]?.media||[];
+  const variant=product?.variants?.find(item=>item.name===card.dataset.selectedVariant)||product?.variants?.[0];
+  const media=variant?.media||product?.media||[];
   const image=card.querySelector('.shop-active-image');
   if(!image||media.length<2)return;
   const index=(nextIndex+media.length)%media.length;
   const next=media[index];
   if(next?.type!=='image')return;
   image.src=next.src;
-  image.alt=next.alt||card.dataset.productName;
+  image.alt=next.alt||`${variant?.name||''} ${card.dataset.productName}`.trim();
   card.dataset.shopMediaIndex=String(index);
   const current=card.querySelector('[data-shop-current]');
   if(current)current.textContent=String(index+1);
@@ -227,6 +231,7 @@ customSelects.forEach(select=>{
 });
 merchCards.forEach(card=>{
   const product=merchProducts.find(item=>item.id===card.dataset.productId);
+  if(product?.variants?.length)card.dataset.selectedVariant=product.variants[0].name;
   if(product?.variants?.length&&!card.classList.contains('shop-product-card'))setCardVariant(card,product.variants[0].name,0);
   const shopGallery=card.querySelector('.shop-scroll-gallery');
   if(shopGallery){
@@ -241,6 +246,7 @@ merchCards.forEach(card=>{
   }
   card.addEventListener('click',event=>{
     const shopMediaControl=event.target.closest('[data-shop-media-step]');
+    const galleryMediaControl=event.target.closest('[data-gallery-media-step]');
     const shopVariant=event.target.closest('[data-shop-variant]');
     const swatch=event.target.closest('.variant-swatch,.variant-preview');
     const thumb=event.target.closest('.media-thumb');
@@ -251,13 +257,21 @@ merchCards.forEach(card=>{
       event.stopPropagation();
       return;
     }
+    if(galleryMediaControl){
+      const variantName=card.dataset.selectedVariant||product.variants[0].name;
+      const variant=product.variants.find(item=>item.name===variantName)||product.variants[0];
+      const current=Number(card.dataset.selectedMediaIndex||0);
+      const next=(current+Number(galleryMediaControl.dataset.galleryMediaStep||0)+variant.media.length)%variant.media.length;
+      setCardVariant(card,variantName,next);
+      event.preventDefault();
+      event.stopPropagation();
+      return;
+    }
     if(shopVariant){
-      const img=card.querySelector('.shop-active-image');
       const variant=shopVariant.dataset.shopVariant;
-      if(img&&shopVariant.dataset.shopImage){
-        img.src=shopVariant.dataset.shopImage;
-        img.alt=`${variant} ${card.dataset.productName}`;
-      }
+      card.dataset.selectedVariant=variant;
+      card.dataset.shopMediaIndex='0';
+      setShopCardMedia(card,0);
       card.querySelectorAll('[data-shop-variant]').forEach(btn=>btn.classList.toggle('active',btn.dataset.shopVariant===variant));
       event.preventDefault();
       event.stopPropagation();

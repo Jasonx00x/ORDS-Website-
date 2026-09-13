@@ -7,7 +7,7 @@ const dist = path.join(root, "dist");
 const siteUrl = "https://ordsmusic.com";
 const siteName = "ORDS Music School & Studio";
 const socialImage = "https://res.cloudinary.com/dtmonxj1h/image/upload/q_auto/f_auto/v1781886182/ORDS_Music_School_Studio_nloflc.jpg";
-const assetVersion = "20260903-cropped-tee-checkout";
+const assetVersion = "20260912-cropped-tee-gallery";
 
 const logo = "https://static.wixstatic.com/media/a51682_27dfdd46028443e7a016d349782ffa8f~mv2.png";
 const favicon = "/assets/WhiteStick-Logo.png";
@@ -173,25 +173,45 @@ const programs = [
 const merchProducts = [
   {
     id: "ii-kings-cropped-tee",
-    name: "II Kings 3:15 Cropped Tee",
-    category: "Cropped Tees",
+    name: "II Kings 3:15 Cropped Oversized Tee",
+    category: "Cropped Oversized Tees",
     status: "New",
     price: 50,
     paymentUrl: "https://square.link/u/Ui1dHENI",
-    image: "/assets/cropped-tee-front-product.jpg",
-    description: "A heavyweight cropped tee featuring II Kings 3:15 on the front and \"Music That Calls Upon the Lord\" across the back.",
-    media: [
-      { type: "image", src: "/assets/cropped-tee-front-product.jpg", alt: "Front detail" },
-      { type: "image", src: "/assets/cropped-tee-back-product.jpg", alt: "Back detail" },
-      { type: "image", src: "/assets/cropped-tee-front-model.jpg", alt: "Front fit" },
-      { type: "image", src: "/assets/cropped-tee-back-model.jpg", alt: "Back fit" }
+    image: "https://res.cloudinary.com/dtmonxj1h/image/upload/q_auto,f_auto/v1789269625/OLD_BLACK_x7mtd2.jpg",
+    description: "A heavyweight cropped oversized tee featuring II Kings 3:15 on the front and \"Music That Calls Upon the Lord\" across the back, available in three colorways.",
+    variants: [
+      {
+        name: "Black",
+        color: "#171816",
+        media: [
+          { type: "image", src: "https://res.cloudinary.com/dtmonxj1h/image/upload/q_auto,f_auto/v1789269625/OLD_BLACK_x7mtd2.jpg", alt: "Black cropped oversized tee front" },
+          { type: "image", src: "https://res.cloudinary.com/dtmonxj1h/image/upload/q_auto,f_auto/v1789269625/OLD_BLACK_BACK_hqqswb.jpg", alt: "Black cropped oversized tee back" }
+        ]
+      },
+      {
+        name: "White",
+        color: "#f2f0e8",
+        media: [
+          { type: "image", src: "https://res.cloudinary.com/dtmonxj1h/image/upload/q_auto,f_auto/v1789269960/NEW_WHITE_FRONT_ijvjy0.jpg", alt: "White cropped oversized tee front" },
+          { type: "image", src: "https://res.cloudinary.com/dtmonxj1h/image/upload/q_auto,f_auto/v1789269960/NEW_WHOITE_BACK_emcekb.jpg", alt: "White cropped oversized tee back" }
+        ]
+      },
+      {
+        name: "Utility Green",
+        color: "#778447",
+        media: [
+          { type: "image", src: "https://res.cloudinary.com/dtmonxj1h/image/upload/q_auto,f_auto/v1789270016/Still_2026-09-11_125631_1.5.1_qexhd9.jpg", alt: "Utility Green cropped oversized tee front" },
+          { type: "image", src: "https://res.cloudinary.com/dtmonxj1h/image/upload/q_auto,f_auto/v1789270015/Still_2026-09-11_125631_1.6.1_adtoql.jpg", alt: "Utility Green cropped oversized tee back" }
+        ]
+      }
     ],
     sizes: ["Small", "Medium", "Large", "XL", "XXL"],
     details: [
       "Heavyweight cropped silhouette",
       "II Kings 3:15 front graphic",
       "Statement back graphic",
-      "Natural cream colorway",
+      "Black, White, and Utility Green colorways",
       "Sizes Small through XXL"
     ],
     thanksSlug: "cropped-tee-thank-you",
@@ -254,12 +274,6 @@ function cleanDist() {
   fs.copyFileSync(path.join(src, "styles.css"), path.join(dist, "css", "styles.css"));
   fs.copyFileSync(path.join(src, "main.js"), path.join(dist, "js", "main.js"));
   fs.copyFileSync(path.join(src, "assets", "WhiteStick-Logo.png"), path.join(dist, "assets", "WhiteStick-Logo.png"));
-  [
-    "cropped-tee-front-model.jpg",
-    "cropped-tee-back-model.jpg",
-    "cropped-tee-front-product.jpg",
-    "cropped-tee-back-product.jpg"
-  ].forEach((asset) => fs.copyFileSync(path.join(src, "assets", asset), path.join(dist, "assets", asset)));
   if (angelAsset) fs.writeFileSync(path.join(dist, "assets", "angel-vocal-instructor.jpg"), angelAsset);
 }
 
@@ -442,13 +456,16 @@ function productGallery(product, mode = "card") {
   const mainMedia = activeMedia.type === "video"
     ? `<video class="merch-main-media" autoplay loop muted defaultMuted playsinline preload="none" poster="${activeMedia.poster || product.image}"><source src="${activeMedia.src}" type="video/mp4"></video>`
     : `<img class="merch-main-media gallery-main" src="${activeMedia.src}" alt="${escapeHtml(product.name)}" loading="lazy" decoding="async">`;
+  const galleryControls = activeVariant.media.length > 1
+    ? `<span class="shop-gallery-count"><b data-gallery-current>1</b> / ${activeVariant.media.length}</span><div class="shop-gallery-arrows"><button type="button" data-gallery-media-step="-1" aria-label="Previous ${escapeHtml(product.name)} photo">&#8249;</button><button type="button" data-gallery-media-step="1" aria-label="Next ${escapeHtml(product.name)} photo">&#8250;</button></div>`
+    : "";
   const variantControls = product.variants ? `<div class="variant-row" aria-label="${escapeHtml(product.name)} color options"><span class="variant-label">Color</span>${variants.map((variant, index) => `<button class="variant-swatch${index === 0 ? " active" : ""}" type="button" data-variant="${escapeHtml(variant.name)}" aria-label="${escapeHtml(variant.name)}" style="--swatch:${variant.color}"><span></span>${variant.name}</button>`).join("")}</div>` : "";
   const mediaRail = activeVariant.media.length > 1 ? `<div class="media-rail">${activeVariant.media.map((media, index) => `<button class="media-thumb${media.type === "video" ? " video-thumb" : ""}${index === 0 ? " active" : ""}" type="button" data-media-index="${index}" aria-label="${media.type === "video" ? "View product video" : `View product photo ${index + 1}`}">${media.type === "video" ? `<span class="media-play">Video</span>` : `<img src="${media.src}" alt="" loading="lazy" decoding="async">`}</button>`).join("")}</div>` : "";
   const variantPreviews = mode === "detail" && product.variants ? `<div class="variant-preview-grid">${variants.map((variant, index) => {
     const preview = variant.media.find((media) => media.type === "image") || variant.media[0];
     return `<button class="variant-preview${index === 0 ? " active" : ""}" type="button" data-variant="${escapeHtml(variant.name)}" aria-label="Show ${escapeHtml(variant.name)} ${escapeHtml(product.name)}"><img src="${preview.src}" alt="${escapeHtml(variant.name)} ${escapeHtml(product.name)}" loading="lazy" decoding="async"><span>${variant.name}</span></button>`;
   }).join("")}</div>` : "";
-  return `<div class="merch-card${galleryClass} ${mode === "detail" ? "product-detail-gallery" : "product-card-gallery"}" data-product-id="${product.id}" data-product-name="${escapeHtml(product.name)}" data-product-price="${product.price || ""}" data-product-price-label="${productPriceLabel(product)}" data-product-sizes="${product.sizes.join("|")}" data-product-variants="${variantData}"><div class="gallery-frame">${mainMedia}<span class="stock-pill">${product.status}</span></div>${variantControls}${mediaRail}${variantPreviews}</div>`;
+  return `<div class="merch-card${galleryClass} ${mode === "detail" ? "product-detail-gallery" : "product-card-gallery"}" data-product-id="${product.id}" data-product-name="${escapeHtml(product.name)}" data-product-price="${product.price || ""}" data-product-price-label="${productPriceLabel(product)}" data-product-sizes="${product.sizes.join("|")}" data-product-variants="${variantData}"><div class="gallery-frame">${mainMedia}<span class="stock-pill">${product.status}</span>${galleryControls}</div>${variantControls}${mediaRail}${variantPreviews}</div>`;
 }
 
 function instagramAnchor(name) {
@@ -523,11 +540,11 @@ function shopPage() {
     const priceLabel = productPriceLabel(product);
     const priceMarkup = product.price ? `<strong>${priceLabel}</strong>` : `<strong class="price-request">${priceLabel}</strong>`;
     const previewFrame = product.variants
-      ? `<div class="gallery-frame shop-variant-frame"><img class="merch-main-media gallery-main shop-active-image" src="${product.variants[0].media.find((media) => media.type === "image").src}" alt="${escapeHtml(product.variants[0].name)} ${escapeHtml(product.name)}" loading="lazy" decoding="async"><span class="stock-pill">${product.status}</span><span class="color-count-pill">Black + White</span></div>`
+      ? `<div class="gallery-frame shop-variant-frame shop-scroll-gallery"><img class="merch-main-media gallery-main shop-active-image" src="${product.variants[0].media.find((media) => media.type === "image").src}" alt="${escapeHtml(product.variants[0].name)} ${escapeHtml(product.name)}" loading="lazy" decoding="async"><span class="stock-pill">${product.status}</span><span class="color-count-pill">${product.variants.length} Colors</span>${product.variants[0].media.length > 1 ? `<span class="shop-gallery-count"><b data-shop-current>1</b> / ${product.variants[0].media.length}</span><div class="shop-gallery-arrows"><button type="button" data-shop-media-step="-1" aria-label="Previous ${escapeHtml(product.name)} photo">&#8249;</button><button type="button" data-shop-media-step="1" aria-label="Next ${escapeHtml(product.name)} photo">&#8250;</button></div>` : ""}</div>`
       : product.media?.length > 1
         ? `<div class="gallery-frame shop-scroll-gallery"><img class="merch-main-media gallery-main shop-active-image" src="${product.media[0].src}" alt="${escapeHtml(product.media[0].alt || product.name)}" loading="lazy" decoding="async"><span class="stock-pill">${product.status}</span><span class="shop-gallery-count"><b data-shop-current>1</b> / ${product.media.length}</span><div class="shop-gallery-arrows"><button type="button" data-shop-media-step="-1" aria-label="Previous ${escapeHtml(product.name)} photo">&#8249;</button><button type="button" data-shop-media-step="1" aria-label="Next ${escapeHtml(product.name)} photo">&#8250;</button></div></div>`
       : `<div class="gallery-frame"><img class="merch-main-media gallery-main" src="${product.image}" alt="${escapeHtml(product.name)}" loading="lazy" decoding="async"><span class="stock-pill">${product.status}</span></div>`;
-    const colorNote = product.variants ? `<div class="shop-color-note">${product.variants.map((variant, index) => `<button class="${index === 0 ? "active" : ""}" type="button" data-shop-variant="${escapeHtml(variant.name)}" data-shop-image="${(variant.media.find((media) => media.type === "image") || variant.media[0]).src}"><i style="--swatch:${variant.color}"></i>${variant.name}</button>`).join("")}</div>` : "";
+    const colorNote = product.variants ? `<div class="shop-color-note">${product.variants.map((variant, index) => `<button class="${index === 0 ? "active" : ""}" type="button" data-shop-variant="${escapeHtml(variant.name)}"><i style="--swatch:${variant.color}"></i>${variant.name}</button>`).join("")}</div>` : "";
     const action = product.paymentUrl
       ? `<a class="btn merch-buy" href="${product.paymentUrl}">Buy Now</a>`
       : `<a class="btn merch-buy" href="/${productSlug(product)}">View Details</a>`;
