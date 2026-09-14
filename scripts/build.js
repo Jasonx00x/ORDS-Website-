@@ -177,7 +177,7 @@ const merchProducts = [
     category: "Cropped Oversized Tees",
     status: "New",
     price: 50,
-    paymentUrl: "https://square.link/u/Ui1dHENI",
+    paymentUrl: "https://square.link/u/xwVV0mTH",
     image: "https://res.cloudinary.com/dtmonxj1h/image/upload/q_auto,f_auto/v1789269625/OLD_BLACK_x7mtd2.jpg",
     description: "A heavyweight cropped oversized tee featuring II Kings 3:15 on the front and \"Music That Calls Upon the Lord\" across the back, available in three colorways.",
     variants: [
