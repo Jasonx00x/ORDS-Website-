@@ -298,13 +298,14 @@ function footer() {
   return `<footer class="footer"><div class="container footer-grid"><div><div class="brand footer-brand"><img src="${logo}" alt="ORDS"><span>ORDS</span></div><p>Music Academy and Studio serving students, musicians, and creatives with discipline, order, practice, and excellence.</p><p>140 Kent Dr<br>Manassas Park, VA 20111</p></div><div><h4>Contact</h4><p>Phone Number<br><a href="tel:+17034758719"><strong>(703) 475-8719</strong></a></p><p>Email<br><a href="mailto:Ramosods@gmail.com"><strong>Ramosods@gmail.com</strong></a></p><h4>Social</h4><a href="https://www.instagram.com/_ords_/" target="_blank" rel="noopener noreferrer">ORDS Music Instagram</a><a href="https://www.instagram.com/ordstudios_/" target="_blank" rel="noopener noreferrer">ORDS Studio Instagram</a></div><div><h4>Quick Links</h4><a href="/about">Get To Know Us</a><a href="/classes">Classes</a><a href="/drum-lessons">Drum Lessons</a><a href="/piano-lessons">Piano Lessons</a><a href="/shop">Shop</a><a href="/consultation">Book Consultation</a><a href="/ords-studio">ORDS Studio</a><a href="/hiring">Hiring</a></div></div><div class="container footer-bottom"><span>© ORDS Music Academy</span><span>Timing is everything.</span></div></footer>`;
 }
 
-function layout({ slug, title, desc, body, image = socialImage, ogTitle, ogDesc, ogUrl, canonicalUrl }) {
+function layout({ slug, title, desc, body, image = socialImage, ogImage, ogImageAlt, ogTitle, ogDesc, ogUrl, canonicalUrl }) {
   pages.push({ slug, title, desc });
   const canonical = canonicalUrl || `${siteUrl}${pagePath(slug)}`;
   const shareTitle = ogTitle || title;
   const shareDesc = ogDesc || desc;
   const shareUrl = ogUrl || canonical;
-  const shareImage = socialImage || image;
+  const shareImage = ogImage || socialImage || image;
+  const shareImageDimensions = ogImage ? '  <meta property="og:image:width" content="1200">\n  <meta property="og:image:height" content="630">\n' : "";
   return `<!doctype html>
 <html lang="en">
 <head>
@@ -321,13 +322,14 @@ function layout({ slug, title, desc, body, image = socialImage, ogTitle, ogDesc,
   <meta property="og:url" content="${shareUrl}">
   <meta property="og:image" content="${shareImage}">
   <meta property="og:image:secure_url" content="${shareImage}">
+${shareImageDimensions}  <meta property="og:image:alt" content="${escapeHtml(ogImageAlt || siteName)}">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${escapeHtml(shareTitle)}">
   <meta name="twitter:description" content="${escapeHtml(shareDesc)}">
   <meta name="twitter:image" content="${shareImage}">
-  <link rel="icon" type="image/png" href="${favicon}">
-  <link rel="shortcut icon" href="${favicon}">
-  <link rel="apple-touch-icon" href="${favicon}">
+  <link rel="icon" type="image/png" sizes="256x256" href="${favicon}">
+  <link rel="shortcut icon" type="image/png" href="${favicon}">
+  <link rel="apple-touch-icon" sizes="180x180" href="${favicon}">
   <meta name="msapplication-TileImage" content="${favicon}">
   <link rel="preconnect" href="https://static.wixstatic.com">
   <link rel="preconnect" href="https://video.wixstatic.com">
@@ -598,10 +600,11 @@ function studioPage() {
 function hiringPage() {
   const title = "Join the ORDS Team | Music Instructor & Studio Careers";
   const desc = "Share your experience and interest in joining ORDS Music School & Studio as an instructor, vocal coach, studio creative, or team member.";
+  const hiringSocialImage = "https://res.cloudinary.com/dtmonxj1h/image/upload/c_fill,g_auto,w_1200,h_630,f_auto,q_auto:good/v1785785432/7IV00377_1_djjxi5.jpg";
   const body = `<header class="hiring-hero"><img src="${drumStudentImg}" alt="ORDS musician performing behind a drum kit" fetchpriority="high" decoding="async"><div class="hiring-hero-shade"></div><div class="container hiring-hero-copy reveal"><span class="eyebrow">Join ORDS</span><h1>Build musicians.<br>Build with purpose.</h1><p>ORDS is always interested in meeting skilled, dependable people who care about music, students, creativity, and excellence.</p><a class="btn" href="#apply">Apply to Join the Team</a></div></header>
   <main class="hiring-page"><section class="hiring-section" id="apply"><div class="container hiring-grid"><aside class="hiring-copy reveal"><span class="eyebrow tag-on-light">Careers & Collaborations</span><h2>Tell us how you could contribute.</h2><p>Submit your experience and availability for consideration. We review applications as instructor, studio, creative, and operational needs become available.</p><div class="hiring-principles"><div><strong>Teach with clarity</strong><span>Help students grow through patient, practical direction.</span></div><div><strong>Show up prepared</strong><span>Bring professionalism, consistency, and care to the work.</span></div><div><strong>Serve the mission</strong><span>Support a culture of discipline, creativity, confidence, and excellence.</span></div></div><p class="hiring-note">Submitting an application does not guarantee a current opening or employment offer. The ORDS team will contact applicants whose experience may fit a present or upcoming need.</p></aside>
   <form class="hiring-form reveal" name="ords-team-application" method="POST" enctype="multipart/form-data" data-netlify="true" netlify-honeypot="bot-field" action="/hiring-thank-you"><input type="hidden" name="form-name" value="ords-team-application"><input type="hidden" name="subject" value="New ORDS team application"><p class="hidden-field"><label>Do not fill this out: <input name="bot-field"></label></p><div class="hiring-form-head"><span>ORDS Team Application</span><h2>Start your application.</h2><p>Fields marked with an asterisk are required.</p></div><fieldset><legend>Area of interest *</legend><div class="hiring-role-grid"><label><input type="radio" name="area-of-interest" value="Music Instructor" required><span>Music Instructor</span></label><label><input type="radio" name="area-of-interest" value="Vocal Coach"><span>Vocal Coach</span></label><label><input type="radio" name="area-of-interest" value="Studio or Audio"><span>Studio / Audio</span></label><label><input type="radio" name="area-of-interest" value="Creative or Operations"><span>Creative / Operations</span></label></div></fieldset><div class="hiring-field-grid"><label>First name *<input name="first-name" autocomplete="given-name" required></label><label>Last name *<input name="last-name" autocomplete="family-name" required></label><label>Email *<input name="email" type="email" autocomplete="email" required></label><label>Phone *<input name="phone" type="tel" autocomplete="tel" required></label><label>City and state *<input name="location" autocomplete="address-level2" placeholder="City, State" required></label><label>Years of experience *<input name="years-of-experience" type="number" min="0" max="60" inputmode="numeric" required></label></div><label>Instrument, specialty, or role *<input name="specialty" placeholder="Drums, vocals, audio engineering, operations..." required></label><label>Portfolio, website, or Instagram <span>Optional</span><input name="portfolio" type="url" inputmode="url" placeholder="https://"></label><label>Resume *<input class="hiring-file" name="resume" type="file" accept=".pdf,.doc,.docx" required><small>PDF, DOC, or DOCX. Maximum upload size is 8 MB.</small></label><label>Experience and teaching or work approach *<textarea name="experience" rows="5" placeholder="Tell us about your background, strengths, and how you work with students, artists, or teams." required></textarea></label><label>General availability *<textarea name="availability" rows="3" placeholder="Days, times, preferred location, and when you could begin." required></textarea></label><label class="hiring-consent"><input name="contact-consent" type="checkbox" value="Yes" required><span>I confirm this information is accurate and agree that ORDS may contact me about current or future opportunities.</span></label><button class="btn hiring-submit" type="submit">Submit Application</button></form></div></section></main>`;
-  return layout({ slug: "hiring", title, desc, body, image: drumStudentImg });
+  return layout({ slug: "hiring", title, desc, body, image: drumStudentImg, ogImage: hiringSocialImage, ogImageAlt: "ORDS musician performing behind a drum kit" });
 }
 
 function silverSpringDrumFunnelPage() {
